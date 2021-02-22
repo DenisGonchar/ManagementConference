@@ -92,6 +92,23 @@ public class DBProperties {
 		pstmt.setString(1, login);
 		
 	}
+	public void setParameterForRolle(User user, String rolle) throws SQLException {
+		pstmt.setString(1, rolle);
+		pstmt.setString(2, user.getLogin());
+		
+	}
+	public void setDelUserParameters(User user) throws SQLException {
+		pstmt.setString(1, user.getLogin());
+		
+	}
+	public void setParametersCodesSpeaches(Conference conference) throws SQLException {
+		pstmt.setString(1, conference.getCode());
+		
+	}
+	public void setParameterSpeachCode(String code) throws SQLException {
+		pstmt.setString(1, code);
+		
+	}
 	
 	
 	

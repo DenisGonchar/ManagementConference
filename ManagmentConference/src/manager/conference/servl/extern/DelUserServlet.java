@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import managment.conference.db.daoImpl.ConferenceDaoImpl;
 import managment.conference.db.daoImpl.SpeachDaoImpl;
+import managment.conference.db.daoImpl.UserConferenceDaoImpl;
 import managment.conference.db.daoImpl.UserDaoImpl;
 import manegment.conference.classes.Conference;
 import manegment.conference.classes.Speach;
@@ -41,6 +42,7 @@ public class DelUserServlet extends HttpServlet {
 		UserDaoImpl speakerDaoImpl = new UserDaoImpl();
 		SpeachDaoImpl speachDaoImpl = new SpeachDaoImpl();
 		ConferenceDaoImpl conferenceDaoImpl = new ConferenceDaoImpl();
+		UserConferenceDaoImpl userConferenceDaoImpl = new UserConferenceDaoImpl();
 		try {
 			List<User> users = userDaoImpl.getAllUsers();
 			List<User> speakers = speakerDaoImpl.getAllSpeakers();
@@ -50,16 +52,20 @@ public class DelUserServlet extends HttpServlet {
 				String login = users.get(i).getLogin();
 				if (request.getParameter(login) != null) {
 					userDaoImpl.removeUser(users.get(i));
+					userConferenceDaoImpl.delUser(users.get(i));
 					users.remove(i);
 				}
+				
+				
 			}
 			for (int i = speakers.size()-1; i >= 0; i--) {
 				String login = speakers.get(i).getLogin();
 				if (request.getParameter(login) != null) {
 					speakerDaoImpl.removeUser(speakers.get(i));
+					userConferenceDaoImpl.delUser(users.get(i));
 					speakers.remove(i);
-					System.out.println("Error here");
 				}
+				
 			}
 			
 			

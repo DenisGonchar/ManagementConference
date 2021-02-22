@@ -14,4 +14,5 @@ public interface UserDao {
 	public boolean checkLoginEmail(String login, String email) throws SQLException, ClassNotFoundException;
 	List<User> getAllSpeakers() throws ClassNotFoundException, SQLException;
 	public User getUserByLogin(String login) throws SQLException, ClassNotFoundException;
+	public void setRolle(User user, String rolle) throws SQLException, ClassNotFoundException;
 }

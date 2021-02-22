@@ -36,7 +36,7 @@ public class SpeachServlet extends HttpServlet {
 		String nameSpeach = request.getParameter("nameSpeach");
 		String time = request.getParameter("time");
 		try {
-			Speach speach = speachDaoImpl.checkSpeach(new Speach(nameSpeach, time, "", ""));
+			Speach speach = speachDaoImpl.checkSpeach(new Speach(nameSpeach, time, "", "", ""));
 			RequestDispatcher rd = null;
 			if(speach != null) {
 					rd = request.getRequestDispatcher("speaker.jsp");

@@ -20,6 +20,11 @@
     color: black;
     padding: 2px;
    }
+   h5 {
+    background: #bdb4c2;
+    color: black;
+    padding: 2px;
+   }
 </style>
 </head>
 <body>
@@ -53,9 +58,6 @@ for(int i=0; i<users.size(); i++){
 <%
 }%>
 </table>
-</form>
-<form action="jumptouserssettingsservlet" method="get">
-<input type="submit" value="Users Settings">
 </form>
 </h4>
 
@@ -99,7 +101,7 @@ Conference conference = (Conference)session.getAttribute("conference");
 ArrayList<Conference> conferences = (ArrayList<Conference>)request.getAttribute("conferences");
 %>
 <br>
-<h4>
+<h5>
 This is list of conferences. You can remove and change it.
 <form action="deleditconference" method="get">
 <table>
@@ -123,13 +125,14 @@ for(int i=0; i<conferences.size(); i++){
 <input type="submit" value="Delete" name="d<%= conferences.get(i).getCode() %>">
 <input type="submit" value="Edit" name="e<%= conferences.get(i).getCode() %>">
 <input type="submit" value="Show Users" name="s<%= conferences.get(i).getCode() %>">
+<input type="submit" value="Settings speaches" name="set<%= conferences.get(i).getCode() %>">
 </td>
 </tr>
 <%
 }%>
 </table>
 </form>
-</h4>
+</h5>
 <form action="jumptoregconfservlet" method="get">
 <input type="submit" value="Add New Conference">
 </form>

@@ -10,4 +10,5 @@ public interface UserConferenceDao {
 	boolean checkUser(User user, String code) throws ClassNotFoundException, SQLException;
 	void regUser(User user, String code) throws SQLException, ClassNotFoundException;
 	List<User> getUsersByCode(String code) throws ClassNotFoundException, SQLException;
+	void delUser(User user) throws ClassNotFoundException, SQLException;
 }

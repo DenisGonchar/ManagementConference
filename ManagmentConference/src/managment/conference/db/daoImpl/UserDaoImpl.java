@@ -107,6 +107,16 @@ public class UserDaoImpl implements UserDao {
 		rs.next();
 		return new User(rs.getString("login"), rs.getString("password"), rs.getString("email"), rs.getString("rolle"));
 	}
+	@Override
+	public void setRolle(User user, String rolle) throws SQLException, ClassNotFoundException {
+		quary = "UPDATE user SET rolle=? WHERE login =?";
+		dbproperties.openDB();
+		dbproperties.createPreparedStatement(quary);
+		dbproperties.setParameterForRolle(user, rolle);
+		dbproperties.updateResult();
+		dbproperties.closeDB();
+		
+	}
 
 
 }

@@ -67,9 +67,13 @@ public class DelEditConference extends HttpServlet {
 					page = "showUser.jsp";
 					users.clear();
 					users = userConferenceDaoImpl.getUsersByCode(conferences.get(i).getCode());
-					System.out.println(users.size());
 					break;
 				}	
+				if (request.getParameter("set" + code) != null) {
+					page = "setSpeaches.jsp";
+					speaches = speachDaoImpl.getSpeachbyConference(conferences.get(i));
+					break;
+				}
 			}
 			request.setAttribute("conferences", conferences);
 			request.setAttribute("users", users);

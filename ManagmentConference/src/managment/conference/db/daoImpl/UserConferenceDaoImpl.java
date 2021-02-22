@@ -57,5 +57,15 @@ public class UserConferenceDaoImpl implements UserConferenceDao{
 		dbproperties.closeDB();
 		
 	}
+	@Override
+	public void delUser(User user) throws ClassNotFoundException, SQLException {
+		quary = "DELETE FROM userconference WHERE login =?";
+		dbproperties.openDB();
+		dbproperties.createPreparedStatement(quary);
+		dbproperties.setDelUserParameters(user);
+		dbproperties.updateResult();
+		dbproperties.closeDB();
+		
+	}
 	
 }

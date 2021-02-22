@@ -3,6 +3,7 @@ package menegment.conference.db.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import manegment.conference.classes.Conference;
 import manegment.conference.classes.Speach;
 
 public interface SpeachDao {
@@ -12,5 +13,6 @@ public interface SpeachDao {
 	public void removeSpeach(Speach speach);
 	public void updateSpeach(Speach speach);
 	public boolean checkSpeachNameTime(String nameSpeach, String time, String interval, String login) throws SQLException, ClassNotFoundException;
-	
+	public List<Speach> getSpeachbyConference(Conference conference) throws ClassNotFoundException, SQLException;
+	public Speach getSpeachByCode(String code) throws ClassNotFoundException, SQLException;
 }

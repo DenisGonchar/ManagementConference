@@ -5,15 +5,28 @@ public class Speach {
     private String time;
     private String interval;
     private String login;
+    private String code;
+    
+    
 
-    public Speach(String nameSpeach, String time, String interval, String login) {
-        this.nameSpeach = nameSpeach;
-        this.time = time;
-        this.interval = interval;
-        this.login = login;
-    }
+    public String getCode() {
+		return code;
+	}
 
-    public Speach() {
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public Speach(String nameSpeach, String time, String interval, String login, String code) {
+		super();
+		this.nameSpeach = nameSpeach;
+		this.time = time;
+		this.interval = interval;
+		this.login = login;
+		this.code = code;
+	}
+
+	public Speach() {
     }
 
     public String getNameSpeach() {
