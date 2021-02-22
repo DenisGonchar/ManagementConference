@@ -55,8 +55,11 @@ public class DelUserServlet extends HttpServlet {
 					userConferenceDaoImpl.delUser(users.get(i));
 					users.remove(i);
 				}
-				
-				
+				if (request.getParameter("gts" + login) != null) {
+					userDaoImpl.setRolle(userDaoImpl.getUserByLogin(users.get(i).getLogin()), "speaker");
+				}
+				users = userDaoImpl.getAllUsers();
+				speakers = speakerDaoImpl.getAllSpeakers();
 			}
 			for (int i = speakers.size()-1; i >= 0; i--) {
 				String login = speakers.get(i).getLogin();
@@ -65,10 +68,12 @@ public class DelUserServlet extends HttpServlet {
 					userConferenceDaoImpl.delUser(users.get(i));
 					speakers.remove(i);
 				}
-				
+				if (request.getParameter("gtu" + login) != null) {
+					speakerDaoImpl.setRolle(speakerDaoImpl.getUserByLogin(speakers.get(i).getLogin()), "user");
+				}
+				users = userDaoImpl.getAllUsers();
+				speakers = speakerDaoImpl.getAllSpeakers();
 			}
-			
-			
 			request.setAttribute("users", users);
 			request.setAttribute("speakers", speakers);
 			request.setAttribute("conferences", conferences);
@@ -84,5 +89,5 @@ public class DelUserServlet extends HttpServlet {
 		}
 		
 	}
-
+	
 }
