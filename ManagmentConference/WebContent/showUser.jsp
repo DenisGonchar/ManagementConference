@@ -25,8 +25,6 @@
 <%
 User user = (User)session.getAttribute("user");
 ArrayList<User> users = (ArrayList<User>)request.getAttribute("users");
-Speach speach = (Speach)session.getAttribute("speach");
-ArrayList<Speach> speaches = (ArrayList<Speach>)request.getAttribute("speaches");
 %>
 <h1>
 This is a list of users who signed up for this conference.

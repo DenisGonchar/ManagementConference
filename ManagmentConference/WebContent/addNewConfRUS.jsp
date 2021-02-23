@@ -18,15 +18,15 @@
 <input type="submit" value="Back">
 </form>
 <form action="registrationconfservlet" method="get">
-<input type="text" name="nameConf" placeholder="Name Conference" value="">
+<input type="text" name="nameConf" placeholder="Имя Конференции" value="">
 <br>
-<input type="text" name="place" placeholder="Place"  value="">
+<input type="text" name="place" placeholder="Место"  value="">
 <br>
-<input type="date" name="date" placeholder="Date" value="">
+<input type="date" name="date" placeholder="Дата" value="">
 <br>
-<input type="time" name="time" placeholder="Time" value="">
+<input type="time" name="time" placeholder="Время" value="">
 <br>
-<input type="submit" value="Add">
+<input type="submit" value="Добавить">
 </form>
 </body>
 </html>

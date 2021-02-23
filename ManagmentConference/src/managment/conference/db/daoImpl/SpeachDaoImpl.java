@@ -92,6 +92,7 @@ public class SpeachDaoImpl implements SpeachDao{
 		speaches.clear();
 		for (int i = 0; i < codesConfsSpeaches.size(); i++) {
 			speaches.add(getSpeachByCode(codesConfsSpeaches.get(i)));
+			System.out.println(codesConfsSpeaches.get(i));
 		}
 		dbproperties.closeDB();
 		return speaches;
@@ -109,6 +110,21 @@ public class SpeachDaoImpl implements SpeachDao{
 				rs.getString("login"), rs.getString("code"));
 		dbproperties.closeDB();
 		return speach;
+	}
+
+	@Override
+	public List<Speach> getSpeachesByLogSpkr(String login) throws SQLException, ClassNotFoundException {
+		query = "SELECT * FROM speach WHERE login =?";
+		dbproperties.openDB();
+		dbproperties.createPreparedStatement(query);
+		dbproperties.setParameterSpeachCode(login);
+		ResultSet rs = dbproperties.createResult();
+		while (rs.next()) {
+			speaches.add(new Speach(rs.getString("nameSpeach"), rs.getString("time"), rs.getString("interval"),
+				rs.getString("login"), rs.getString("code")));
+		}
+		dbproperties.closeDB();
+		return speaches;
 	}
 
 }

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import managment.conference.db.daoImpl.ConferenceDaoImpl;
 import managment.conference.db.daoImpl.SpeachDaoImpl;
+import managment.conference.db.daoImpl.SpeachesConferenceDaoImpl;
 import managment.conference.db.daoImpl.UserConferenceDaoImpl;
 import managment.conference.db.daoImpl.UserDaoImpl;
 import manegment.conference.classes.Conference;
@@ -43,6 +44,7 @@ public class DelUserServlet extends HttpServlet {
 		SpeachDaoImpl speachDaoImpl = new SpeachDaoImpl();
 		ConferenceDaoImpl conferenceDaoImpl = new ConferenceDaoImpl();
 		UserConferenceDaoImpl userConferenceDaoImpl = new UserConferenceDaoImpl();
+		SpeachesConferenceDaoImpl speachesConferenceDaoImpl = new SpeachesConferenceDaoImpl();
 		try {
 			List<User> users = userDaoImpl.getAllUsers();
 			List<User> speakers = speakerDaoImpl.getAllSpeakers();
@@ -58,22 +60,24 @@ public class DelUserServlet extends HttpServlet {
 				if (request.getParameter("gts" + login) != null) {
 					userDaoImpl.setRolle(userDaoImpl.getUserByLogin(users.get(i).getLogin()), "speaker");
 				}
-				users = userDaoImpl.getAllUsers();
-				speakers = speakerDaoImpl.getAllSpeakers();
 			}
 			for (int i = speakers.size()-1; i >= 0; i--) {
 				String login = speakers.get(i).getLogin();
 				if (request.getParameter(login) != null) {
+					speaches = speachDaoImpl.getSpeachesByLogSpkr(speakers.get(i).getLogin());
+					for (int j = 0; j < speaches.size(); j++) {
+						speachesConferenceDaoImpl.delSpeachConfByCodeSpeach(speaches.get(j).getCode());
+					}
+					userConferenceDaoImpl.delUser(speakers.get(i));
 					speakerDaoImpl.removeUser(speakers.get(i));
-					userConferenceDaoImpl.delUser(users.get(i));
 					speakers.remove(i);
 				}
 				if (request.getParameter("gtu" + login) != null) {
 					speakerDaoImpl.setRolle(speakerDaoImpl.getUserByLogin(speakers.get(i).getLogin()), "user");
 				}
-				users = userDaoImpl.getAllUsers();
-				speakers = speakerDaoImpl.getAllSpeakers();
 			}
+			users = userDaoImpl.getAllUsers();
+			speakers = speakerDaoImpl.getAllSpeakers();
 			request.setAttribute("users", users);
 			request.setAttribute("speakers", speakers);
 			request.setAttribute("conferences", conferences);

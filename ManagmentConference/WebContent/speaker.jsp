@@ -36,7 +36,6 @@ ArrayList<Speach> speaches = (ArrayList<Speach>)request.getAttribute("speaches")
 This is list of yours speaches. You can remove and change name of it.
 <form action="speachservlet" method="get">
 <table>
-
 <%
 for(int i=0; i<speaches.size(); i++){
 %>

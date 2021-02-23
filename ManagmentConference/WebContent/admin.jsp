@@ -35,6 +35,9 @@ ArrayList<User> users = (ArrayList<User>)request.getAttribute("users");
 <h1>
 Hello <%=user.getLogin() %>, you are moderator.
 </h1>
+<form action="" method="get">
+<input type="submit" value="English/Russian">
+</form>
 <br>
 <br>
 <h4>
