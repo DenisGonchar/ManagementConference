@@ -71,6 +71,7 @@ public class DelEditConference extends HttpServlet {
 				}	
 				if (request.getParameter("set" + code) != null) {
 					page = "setSpeaches.jsp";
+					session.setAttribute("conference", conferences.get(i));
 					speaches = speachDaoImpl.getSpeachbyConference(conferences.get(i));
 					break;
 				}

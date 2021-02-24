@@ -20,4 +20,14 @@ public class SpeachesConferenceDaoImpl implements SpeachesConferenceDao{
 		
 	}
 
+	@Override
+	public void addSpeachConf(String codeSpeach, String codeConf) throws SQLException, ClassNotFoundException {
+		quary = "INSERT INTO speachesconference (codeConf, codeSpeach) VALUES (?, ?)";
+		dbproperties.openDB();
+		dbproperties.createPreparedStatement(quary);
+		dbproperties.setAddSpeachConfParameters(codeConf, codeSpeach);
+		dbproperties.updateResult();
+		dbproperties.closeDB();
+	}
+
 }

@@ -80,6 +80,7 @@ public class SpeachDaoImpl implements SpeachDao{
 
 	@Override
 	public List<Speach> getSpeachbyConference(Conference conference) throws ClassNotFoundException, SQLException {
+		System.out.println("Here!");
 		query = "SELECT * FROM speachesconference WHERE codeConf =?";
 		dbproperties.openDB();
 		dbproperties.createPreparedStatement(query);
@@ -90,6 +91,10 @@ public class SpeachDaoImpl implements SpeachDao{
 			codesConfsSpeaches.add(rs.getString("codeSpeach"));
 		}
 		speaches.clear();
+		for (int i = 0; i < codesConfsSpeaches.size(); i++) {
+			System.out.println(codesConfsSpeaches.get(i));
+		}
+		System.out.println("__________ " + codesConfsSpeaches.size());
 		for (int i = 0; i < codesConfsSpeaches.size(); i++) {
 			speaches.add(getSpeachByCode(codesConfsSpeaches.get(i)));
 			System.out.println(codesConfsSpeaches.get(i));

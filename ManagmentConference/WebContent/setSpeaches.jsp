@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ page import="manegment.conference.classes.User, manegment.conference.classes.Speach, java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
@@ -26,7 +27,7 @@
 ArrayList<Speach> speaches = (ArrayList<Speach>)request.getAttribute("speaches");
 %>
 <h1>
-This is list of yours speaches. You can remove and change name of it.
+This is list of speaches from confernce: <c:out value="${conference}"></c:out>. You can remove and change name of it.
 </h1>
 <h5>
 <form action="deleditconference" method="get">
@@ -57,6 +58,9 @@ Interval: <%=speaches.get(i).getInterval() %> min.
 </table>
 </form>
 </h5>
+<form action="jumptoaddspeach" method="get">
+<input type="submit" value="Add new speach">
+</form>
 <form action="jumptoadminpageservlet" method="get">
 <input type="submit" value="Back">
 </form>

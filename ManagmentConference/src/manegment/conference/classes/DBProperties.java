@@ -109,6 +109,11 @@ public class DBProperties {
 		pstmt.setString(1, code);
 		
 	}
+	public void setAddSpeachConfParameters(String codeConf, String codeSpeach) throws SQLException {
+		pstmt.setString(1, codeSpeach);
+		pstmt.setString(2, codeConf);
+		
+	}
 	
 	
 	

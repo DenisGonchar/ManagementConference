@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,6 +40,9 @@ form {
 	top: 150px;
 	left: 370px;
 }
+#Error{
+	color: red;
+}
 </style>
 </head>
 <body>
@@ -49,18 +53,13 @@ form {
 <input type="password" name="pass" placeholder="Input Your Password" />
 <br>
 <input type="submit" class="gradient-button" value="       Login       "/>
-<%
-String error = (String) request.getAttribute("Error");
-if(error != null){
-	%>
-	<b><%=error%></b>
-	<%
-}
-%>
 </form>
 <form action= "jumptoregistration" method= "get">
 <input type="submit" class="gradient-button" value=" Registration ">
 </form>
+<div id = "Error">
+<c:out value="${Error}"></c:out>
+</div>
 </div>
 </body>
 </html>
