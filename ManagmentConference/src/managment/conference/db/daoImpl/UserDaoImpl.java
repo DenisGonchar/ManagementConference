@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.management.Query;
 
 import manegment.conference.classes.DBProperties;
 import manegment.conference.classes.User;

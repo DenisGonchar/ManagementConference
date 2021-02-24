@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import managment.conference.db.daoImpl.ConferenceDaoImpl;
-import managment.conference.db.daoImpl.SpeachDaoImpl;
 import managment.conference.db.daoImpl.UserConferenceDaoImpl;
 import manegment.conference.classes.Conference;
 import manegment.conference.classes.User;

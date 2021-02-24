@@ -47,10 +47,10 @@ public class SpeachDaoImpl implements SpeachDao{
 
 	@Override
 	public void addSpeach(Speach speach) throws ClassNotFoundException, SQLException {
-		query = "INSERT INTO speach (nameSpeach, time, interval, login) VALUES (?, ?, ?, ?)";
+		query = "INSERT INTO speach (nameSpeach, time, interval, login, code) VALUES (?, ?, ?, ?, ?)";
 		dbproperties.openDB();
 		dbproperties.createPreparedStatement(query);
-		dbproperties.setAddParametersToSpeach(speach.getNameSpeach(), speach.getTime(), speach.getInterval(), speach.getLogin());
+		dbproperties.setAddParametersToSpeach(speach.getNameSpeach(), speach.getTime(), speach.getInterval(), speach.getLogin(), speach.getCode());
 		dbproperties.updateResult();
 		dbproperties.closeDB();
 		
@@ -80,7 +80,6 @@ public class SpeachDaoImpl implements SpeachDao{
 
 	@Override
 	public List<Speach> getSpeachbyConference(Conference conference) throws ClassNotFoundException, SQLException {
-		System.out.println("Here!");
 		query = "SELECT * FROM speachesconference WHERE codeConf =?";
 		dbproperties.openDB();
 		dbproperties.createPreparedStatement(query);
@@ -92,12 +91,7 @@ public class SpeachDaoImpl implements SpeachDao{
 		}
 		speaches.clear();
 		for (int i = 0; i < codesConfsSpeaches.size(); i++) {
-			System.out.println(codesConfsSpeaches.get(i));
-		}
-		System.out.println("__________ " + codesConfsSpeaches.size());
-		for (int i = 0; i < codesConfsSpeaches.size(); i++) {
 			speaches.add(getSpeachByCode(codesConfsSpeaches.get(i)));
-			System.out.println(codesConfsSpeaches.get(i));
 		}
 		dbproperties.closeDB();
 		return speaches;

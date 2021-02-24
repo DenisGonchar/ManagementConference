@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@ page import="manegment.conference.classes.User, manegment.conference.classes.Conference, java.util.ArrayList"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +14,7 @@
     color: white;
     padding: 2px;
    }
-    h5 {
+    .tableForm {
     background: #bdb4c2;
     color: black;
     padding: 2px;
@@ -23,54 +23,38 @@
 </style>
 </head>
 <body>
-<%
-User user = (User)session.getAttribute("user");
-%>
 <h1>
-Hello <%=user.getLogin() %>, you are user.
+Hello, <c:out value="${user.login}"></c:out>, you are user.
 </h1>
-<%
-ArrayList<Conference> conferences = (ArrayList<Conference>)request.getAttribute("conferences");
-ArrayList<Boolean> regconf = (ArrayList<Boolean>)request.getAttribute("regconf");
-%>
 <br>
-<h5>
+<div class="tableForm">
 This is list of conferences. You can register for one of them.
 <form action="reguserbyconference" method="get">
 <table>
-
-<%
-for(int i=0; i<conferences.size(); i++){
-	
-%>
+<c:forEach items="${conferences}" var="c">
 <tr>
 <td>
-<%=conferences.get(i).getNameConf() %>
+<c:out value="${c.nameConf}"></c:out>
 </td>
 <td>
-<%=conferences.get(i).getPlace() %>
+<c:out value="${c.place}"></c:out>
 </td>
 <td>
-<%=conferences.get(i).getDate() %>
+<c:out value="${c.date}"></c:out>
 </td>
 <td>
-<%=conferences.get(i).getTime() %>
+<c:out value="${c.time}"></c:out>
 </td>
 <td>
-<%
-if(!regconf.get(i)){
-%>
-<input type="submit" value="Registration" name="<%= conferences.get(i).getCode() %>">
-<%
-} 
-%>
+<c:if test="${regConf == false}">
+<input type="submit" value="Registration" name="<c:out value="${c.code}"></c:out>">
+</c:if>
 </td>
 </tr>
-<%
-}%>
+</c:forEach>
 </table>
 </form>
-</h5>
+</div>
 <form action="jumptologinpageservlet" method="get">
 <input type="submit" value="Back">
 </form>

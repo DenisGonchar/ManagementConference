@@ -10,10 +10,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import managment.conference.db.daoImpl.SpeachDaoImpl;
 import managment.conference.db.daoImpl.UserDaoImpl;
 import manegment.conference.classes.Speach;
+import manegment.conference.classes.User;
 /**
  * Servlet implementation class SpeachServlet
  */
@@ -34,23 +36,27 @@ public class SpeachServlet extends HttpServlet {
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SpeachDaoImpl speachDaoImpl = new SpeachDaoImpl();
+		UserDaoImpl speakerDaoImpl = new UserDaoImpl();
 		String nameSpeach = request.getParameter("nameSpeach");
 		String time = request.getParameter("time");
+		HttpSession session = request.getSession();
 		try {
 			List<Speach> speaches = speachDaoImpl.getAllSpeaches();
+			List<User> speakers = speakerDaoImpl.getAllSpeakers();
 			Speach speach = speachDaoImpl.checkSpeach(new Speach(nameSpeach, time, "", "", ""));
 			RequestDispatcher rd = null;
 			for (int i = 0; i < speaches.size(); i++) {
 			if(speach != null) {
-					speaches = speachDaoImpl.getSpeachesByLogSpkr(speaches.get(i).getLogin());
 					rd = request.getRequestDispatcher("speaker.jsp");
-					speaches = speachDaoImpl.getAllSpeaches();
-					request.setAttribute("speaches", speaches);
+					session.setAttribute("speaches", speaches.get(i));
+					speaches = speachDaoImpl.getSpeachesByLogSpkr(speakers.get(i).getLogin());
 				}else {
 					rd = request.getRequestDispatcher("login.jsp");
 					request.setAttribute("Error", "Incorrect login or password");
 				}
 			}
+			request.setAttribute("speakers", speakers);
+			request.setAttribute("speaches", speaches);
 			rd.forward(request, response);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

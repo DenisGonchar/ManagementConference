@@ -5,16 +5,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.management.Query;
-
-import manegment.conference.classes.Conference;
 import manegment.conference.classes.DBProperties;
 import manegment.conference.classes.User;
 import menegment.conference.db.dao.UserConferenceDao;
 
 public class UserConferenceDaoImpl implements UserConferenceDao{
 	private DBProperties dbproperties = new DBProperties();
-	private List<Conference> conferences = new ArrayList<>();
 	private List<User> users = new ArrayList<User>();
 	private String quary;
 	

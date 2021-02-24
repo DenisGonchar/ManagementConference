@@ -44,11 +44,12 @@ public class DBProperties {
 	public void setDelParameters(String login) throws SQLException{
 		pstmt.setString(1, login);
 	}
-	public void setAddParametersToSpeach(String nameSpeach, String time, String interval, String login) throws SQLException {
+	public void setAddParametersToSpeach(String nameSpeach, String time, String interval, String login, String code) throws SQLException {
 		pstmt.setString(1, nameSpeach);
 		pstmt.setString(2, time);
 		pstmt.setString(3, interval);
 		pstmt.setString(4, login);
+		pstmt.setString(5, code);
 	}
 	
 	public void setAddParametersToConference(String nameConf, String place, String date, String time, String code) throws SQLException {
