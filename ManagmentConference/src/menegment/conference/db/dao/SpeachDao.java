@@ -16,4 +16,6 @@ public interface SpeachDao {
 	public List<Speach> getSpeachbyConference(Conference conference) throws ClassNotFoundException, SQLException;
 	public Speach getSpeachByCode(String code) throws ClassNotFoundException, SQLException;
 	public List<Speach> getSpeachesByLogSpkr(String login) throws SQLException, ClassNotFoundException;
+	public void changeLogin(String login, String code) throws SQLException, ClassNotFoundException;
+	public void changeTopic(String nameSpeach, String code) throws SQLException, ClassNotFoundException;
 }

@@ -44,10 +44,10 @@ Interval: <c:out value="${s.interval}"></c:out> min.
 <c:out value="${s.login}"></c:out>
 </td>
 <td>
-<input type="submit" value="edit" name="<c:out value="${s.nameSpeach}"></c:out>">
+<input type="submit" value="edit" name="e<c:out value="${s.code}"></c:out>">
 </td>
 <td>
-<input type="submit" value="delete" name="<c:out value="${s.nameSpeach}"></c:out>">
+<input type="submit" value="delete" name="d<c:out value="${s.code}"></c:out>">
 </td>
 </tr>
 </c:forEach>
@@ -59,23 +59,23 @@ Interval: <c:out value="${s.interval}"></c:out> min.
 This is list of conferences. You can register for one of them.
 <form action="regspeakerbyconference" method="get">
 <table>
-<c:forEach items="${conferences}" var="c">
+<c:forEach items="${propConferences}" var="pc">
 <tr>
 <td>
-<c:out value="${c.nameConf}"></c:out>
+<c:out value="${pc.conference.nameConf}"></c:out>
 </td>
 <td>
-<c:out value="${c.place}"></c:out>
+<c:out value="${pc.conference.place}"></c:out>
 </td>
 <td>
-<c:out value="${c.date}"></c:out>
+<c:out value="${pc.conference.date}"></c:out>
 </td>
 <td>
-<c:out value="${c.time}"></c:out>
+<c:out value="${pc.conference.time}"></c:out>
 </td>
 <td>
-<c:if test="${regConf == false}">
-<input type="submit" value="Registration" name="<c:out value="${c.code}"></c:out>">
+<c:if test="${pc.registration == false}">
+<input type="submit" value="Registration" name="<c:out value="${pc.conference.code}"></c:out>">
 </c:if>
 </td>
 </tr>

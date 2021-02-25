@@ -66,7 +66,8 @@ public class DelUserServlet extends HttpServlet {
 				if (request.getParameter(login) != null) {
 					speaches = speachDaoImpl.getSpeachesByLogSpkr(speakers.get(i).getLogin());
 					for (int j = 0; j < speaches.size(); j++) {
-						speachesConferenceDaoImpl.delSpeachConfByCodeSpeach(speaches.get(j).getCode());
+						//speachesConferenceDaoImpl.delSpeachConfByCodeSpeach(speaches.get(j).getCode());
+						
 					}
 					userConferenceDaoImpl.delUser(speakers.get(i));
 					speakerDaoImpl.removeUser(speakers.get(i));

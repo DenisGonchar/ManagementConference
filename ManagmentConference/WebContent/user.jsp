@@ -46,7 +46,7 @@ This is list of conferences. You can register for one of them.
 <c:out value="${c.time}"></c:out>
 </td>
 <td>
-<c:if test="${regConf == false}">
+<c:if test="${!regconf}">
 <input type="submit" value="Registration" name="<c:out value="${c.code}"></c:out>">
 </c:if>
 </td>

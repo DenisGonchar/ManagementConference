@@ -53,12 +53,6 @@ for(int i=0; i<speaches.size(); i++){
 <td>
 <%=speaches.get(i).getLogin() %>
 </td>
-<td>
-<input type="submit" value="edit" name="<%= speaches.get(i).getNameSpeach() %>">
-</td>
-<td>
-<input type="submit" value="delete" name="<%= speaches.get(i).getNameSpeach() %>">
-</td>
 </tr>
 <%
 }%>

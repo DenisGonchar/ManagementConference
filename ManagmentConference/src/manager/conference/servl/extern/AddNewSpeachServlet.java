@@ -44,7 +44,7 @@ public class AddNewSpeachServlet extends HttpServlet {
 		String interval = request.getParameter("interval");
 		try {
 			List<Speach> speaches = speachDaoImpl.getAllSpeaches();
-			String code = "H" + Integer.parseInt(speaches.get(speaches.size()-1).getCode().substring(1))+1;
+			String code = "H" + (Integer.parseInt(speaches.get(speaches.size()-1).getCode().substring(1))+1);
 			speachDaoImpl.addSpeach(new Speach(nameSpeach, time, interval, "freeSpeaker", code));
 			Conference conference = (Conference) session.getAttribute("conference");
 			speachesConferenceDaoImpl.addSpeachConf(conference.getCode(), code);

@@ -115,6 +115,11 @@ public class DBProperties {
 		pstmt.setString(2, codeConf);
 		
 	}
+	public void setUpdateParametersChangeLogin(String login, String code) throws SQLException {
+		pstmt.setString(1, login);
+		pstmt.setString(2, code);
+		
+	}
 	
 	
 	

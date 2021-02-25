@@ -18,6 +18,7 @@ import managment.conference.db.daoImpl.SpeachDaoImpl;
 import managment.conference.db.daoImpl.UserConferenceDaoImpl;
 import managment.conference.db.daoImpl.UserDaoImpl;
 import manegment.conference.classes.Conference;
+import manegment.conference.classes.PropConference;
 import manegment.conference.classes.Speach;
 import manegment.conference.classes.User;
 
@@ -45,6 +46,7 @@ public class LoginServlet extends HttpServlet {
 		ConferenceDaoImpl conferenceDaoImpl = new ConferenceDaoImpl();
 		UserConferenceDaoImpl userConferenceDaoImpl = new UserConferenceDaoImpl();
 		SpeachDaoImpl speachDaoImpl = new SpeachDaoImpl();
+		List<PropConference> propConferences = new ArrayList<>();
 		String login = request.getParameter("login");
 		String password = request.getParameter("pass");
 		HttpSession session = request.getSession();
@@ -65,33 +67,31 @@ public class LoginServlet extends HttpServlet {
 					request.setAttribute("conferences", conferences);
 					break;
 				case "speaker":
-					List<Boolean> regconf = new ArrayList<Boolean>();
 					rd = request.getRequestDispatcher("speaker.jsp");
-					speaches = speachDaoImpl.getAllSpeaches();
+					speaches = speachDaoImpl.getSpeachesByLogSpkr(login);
 					conferences = conferenceDaoImpl.getAllConferences();
 					for (int i = 0; i < conferences.size(); i++) {
 						if (userConferenceDaoImpl.checkUser(user, conferences.get(i).getCode())) {
-							regconf.add(true);
+							propConferences.add(new PropConference(conferences.get(i), true));
 						} else {
-							regconf.add(false);
+							propConferences.add(new PropConference(conferences.get(i), false));
 						}
 					}
 					request.setAttribute("speaches", speaches);
-					request.setAttribute("regconf", regconf);
+					request.setAttribute("propConferences", propConferences);
 					request.setAttribute("conferences", conferences);
 					break;
 				case "user":
-					regconf = new ArrayList<Boolean>();
 					rd = request.getRequestDispatcher("user.jsp");
 					conferences = conferenceDaoImpl.getAllConferences();
 					for (int i = 0; i < conferences.size(); i++) {
 						if (userConferenceDaoImpl.checkUser(user, conferences.get(i).getCode())) {
-							regconf.add(true);
+							propConferences.add(new PropConference(conferences.get(i), true));
 						} else {
-							regconf.add(false);
+							propConferences.add(new PropConference(conferences.get(i), false));
 						}
 					}
-					request.setAttribute("regconf", regconf);
+					request.setAttribute("propConferences", propConferences);
 					request.setAttribute("conferences", conferences);
 					break;
 				}

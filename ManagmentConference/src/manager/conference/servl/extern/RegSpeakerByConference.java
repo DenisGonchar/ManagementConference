@@ -17,6 +17,7 @@ import managment.conference.db.daoImpl.ConferenceDaoImpl;
 import managment.conference.db.daoImpl.SpeachDaoImpl;
 import managment.conference.db.daoImpl.UserConferenceDaoImpl;
 import manegment.conference.classes.Conference;
+import manegment.conference.classes.PropConference;
 import manegment.conference.classes.Speach;
 import manegment.conference.classes.User;
 
@@ -44,9 +45,9 @@ public class RegSpeakerByConference extends HttpServlet {
 		ConferenceDaoImpl conferenceDaoImpl = new ConferenceDaoImpl();
 		UserConferenceDaoImpl userConferenceDaoImpl = new UserConferenceDaoImpl();
 		SpeachDaoImpl speachDaoImpl = new SpeachDaoImpl();
-		List<Boolean> regconf = new ArrayList<Boolean>();
+		List<PropConference> propConferences = new ArrayList<>();
 		try {
-			List<Speach> speaches = speachDaoImpl.getAllSpeaches();
+			List<Speach> speaches = speachDaoImpl.getSpeachesByLogSpkr(user.getLogin());
 			List<Conference> conferences = conferenceDaoImpl.getAllConferences();
 			RequestDispatcher rd = null;
 			for (int i = 0; i < conferences.size(); i++) {
@@ -55,13 +56,13 @@ public class RegSpeakerByConference extends HttpServlet {
 					
 				}
 				if(userConferenceDaoImpl.checkUser(user, conferences.get(i).getCode())) {
-					regconf.add(true);
+					propConferences.add(new PropConference(conferences.get(i), true));
 				} else {
-					regconf.add(false);
+					propConferences.add(new PropConference(conferences.get(i), false));
 				}
 			}
 			request.setAttribute("speaches", speaches);
-			request.setAttribute("regconf", regconf);
+			request.setAttribute("propConferences", propConferences);
 			request.setAttribute("conferences", conferences);
 			rd = request.getRequestDispatcher("speaker.jsp");
 			rd.forward(request, response);

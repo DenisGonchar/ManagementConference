@@ -23,7 +23,7 @@ public class SpeachDaoImpl implements SpeachDao{
 		ResultSet rs = dbproperties.createResult();
 		speaches.clear();
 		while (rs.next()) {
-			speaches.add(new Speach(rs.getString("nameSpeach"), rs.getString("time"), rs.getString("interval"), 
+			speaches.add(new Speach(rs.getString("nameSpeach"), rs.getString("time"), rs.getString("intervals"), 
 					rs.getString("login"), rs.getString("code")));
 		}
 		dbproperties.closeDB();
@@ -38,7 +38,7 @@ public class SpeachDaoImpl implements SpeachDao{
 		ResultSet rs = dbproperties.createResult();
 		Speach u = null;
 		if(rs.next()) {
-			u = new Speach(rs.getString("nameSpeach"), rs.getString("time"), rs.getString("interval"), 
+			u = new Speach(rs.getString("nameSpeach"), rs.getString("time"), rs.getString("intervals"), 
 					rs.getString("login"), rs.getString("code"));
 		}
 		dbproperties.closeDB();
@@ -47,7 +47,7 @@ public class SpeachDaoImpl implements SpeachDao{
 
 	@Override
 	public void addSpeach(Speach speach) throws ClassNotFoundException, SQLException {
-		query = "INSERT INTO speach (nameSpeach, time, interval, login, code) VALUES (?, ?, ?, ?, ?)";
+		query = "INSERT INTO speach (nameSpeach, time, intervals, login, code) VALUES (?, ?, ?, ?, ?)";
 		dbproperties.openDB();
 		dbproperties.createPreparedStatement(query);
 		dbproperties.setAddParametersToSpeach(speach.getNameSpeach(), speach.getTime(), speach.getInterval(), speach.getLogin(), speach.getCode());
@@ -105,7 +105,7 @@ public class SpeachDaoImpl implements SpeachDao{
 		dbproperties.setParameterSpeachCode(code);
 		ResultSet rs = dbproperties.createResult();
 		rs.next();
-		Speach speach = new Speach(rs.getString("nameSpeach"), rs.getString("time"), rs.getString("interval"),
+		Speach speach = new Speach(rs.getString("nameSpeach"), rs.getString("time"), rs.getString("intervals"),
 				rs.getString("login"), rs.getString("code"));
 		dbproperties.closeDB();
 		return speach;
@@ -119,11 +119,32 @@ public class SpeachDaoImpl implements SpeachDao{
 		dbproperties.setParameterSpeachCode(login);
 		ResultSet rs = dbproperties.createResult();
 		while (rs.next()) {
-			speaches.add(new Speach(rs.getString("nameSpeach"), rs.getString("time"), rs.getString("interval"),
+			speaches.add(new Speach(rs.getString("nameSpeach"), rs.getString("time"), rs.getString("intervals"),
 				rs.getString("login"), rs.getString("code")));
 		}
 		dbproperties.closeDB();
 		return speaches;
+	}
+
+	@Override
+	public void changeLogin(String login, String code) throws SQLException, ClassNotFoundException {
+		query = "UPDATE speach SET login=? WHERE code =?";
+		dbproperties.openDB();
+		dbproperties.createPreparedStatement(query);
+		dbproperties.setUpdateParametersChangeLogin(login, code);
+		dbproperties.updateResult();
+		dbproperties.closeDB();
+		
+	}
+	@Override
+	public void changeTopic(String nameSpeach, String code) throws SQLException, ClassNotFoundException {
+		query = "UPDATE speach SET nameSpeach=? WHERE code =?";
+		dbproperties.openDB();
+		dbproperties.createPreparedStatement(query);
+		dbproperties.setUpdateParametersChangeLogin(nameSpeach, code);
+		dbproperties.updateResult();
+		dbproperties.closeDB();
+		
 	}
 
 }
