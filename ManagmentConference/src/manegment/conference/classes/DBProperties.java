@@ -115,9 +115,15 @@ public class DBProperties {
 		pstmt.setString(2, codeConf);
 		
 	}
-	public void setUpdateParametersChangeLogin(String login, String code) throws SQLException {
-		pstmt.setString(1, login);
-		pstmt.setString(2, code);
+	public void setUpdateParametersChangeLogin(String oldlogin, String newlogin, String code) throws SQLException {
+		pstmt.setString(1, oldlogin);
+		pstmt.setString(2, newlogin);
+		pstmt.setString(3, code);
+		
+	}
+	public void setUpdateParametersChangeTopic(String oldlogin, String newlogin) throws SQLException {
+		pstmt.setString(1, oldlogin);
+		pstmt.setString(2, newlogin);
 		
 	}
 	public void setUpdateAllParametersSpeech(String nameSpeach, String time, String interval, String login,
@@ -125,7 +131,12 @@ public class DBProperties {
 		pstmt.setString(1, nameSpeach);
 		pstmt.setString(2, time);
 		pstmt.setString(3, interval);
-		pstmt.setString(4, code);
+		pstmt.setString(4, login);
+		pstmt.setString(5, code);
+	}
+	public void setParametersDelSpeech(String code) throws SQLException {
+		pstmt.setString(1, code);
+		
 	}
 	
 	

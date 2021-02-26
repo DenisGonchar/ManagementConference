@@ -12,24 +12,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import managment.conference.db.daoImpl.ConferenceDaoImpl;
 import managment.conference.db.daoImpl.SpeechDaoImpl;
-import managment.conference.db.daoImpl.UserDaoImpl;
+import managment.conference.db.daoImpl.SpeechesConferenceDaoImpl;
 import manegment.conference.classes.Conference;
 import manegment.conference.classes.Speech;
-import manegment.conference.classes.User;
 
 /**
- * Servlet implementation class StartPageServlet
+ * Servlet implementation class ChangeSpeechServlet
  */
-@WebServlet("/jumptoadminpageservlet")
-public class JumpToAdminPageServlet extends HttpServlet {
+@WebServlet("/deleditspeechservlet")
+public class DelEditSpeechServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public JumpToAdminPageServlet() {
+    public DelEditSpeechServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,24 +36,32 @@ public class JumpToAdminPageServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UserDaoImpl userDaoImpl = new UserDaoImpl();
-		UserDaoImpl speakerDaoImpl = new UserDaoImpl();
-		ConferenceDaoImpl conferenceDaoImpl = new ConferenceDaoImpl();
 		SpeechDaoImpl speachDaoImpl = new SpeechDaoImpl();
-		String language = request.getParameter("language");
+		SpeechesConferenceDaoImpl speechesConferenceDaoImpl = new SpeechesConferenceDaoImpl();
 		HttpSession session = request.getSession();
-		session.setAttribute("language", language);
-		RequestDispatcher rd = request.getRequestDispatcher(language.equals("en")?"admin.jsp":"adminRUS.jsp");
-		List<User> users;
+		Conference conference = (Conference) session.getAttribute("conference");
+		String language = (String) session.getAttribute("language");
+		String page = null;
 		try {
-			users = userDaoImpl.getAllUsers();
-			request.setAttribute("users", users);
-			List<User> speakers = speakerDaoImpl.getAllSpeakers();
-			request.setAttribute("speakers", speakers);
-			List<Speech> speaches = speachDaoImpl.getAllSpeaches();
+			List<Speech> speaches = speachDaoImpl.getSpeachbyConference(conference);	
+			RequestDispatcher rd = null;
+			for (int i = speaches.size()-1; i >= 0 ; i--) {
+				String code = speaches.get(i).getCode();
+				if(request.getParameter("d" + code) != null) {
+					page = language.equals("en")?"setSpeaches.jsp":"setSpeachesRUS.jsp";
+					speachDaoImpl.removeSpeech(code);
+					speaches.remove(i);
+					speechesConferenceDaoImpl.delSpeachConfByCodeSpeach(code);
+					break;
+				}
+				if (request.getParameter("ch" + code) != null) {
+					page = language.equals("en")?"setAllParametersSpeakerSpeaches.jsp":"setAllParametersSpeakerSpeachesRUS.jsp";
+					session.setAttribute("speach", speaches.get(i));
+					break;
+				}
+			}
+			rd = request.getRequestDispatcher(page);
 			request.setAttribute("speaches", speaches);
-			List<Conference> conferences = conferenceDaoImpl.getAllConferences();
-			request.setAttribute("conferences", conferences);
 			rd.forward(request, response);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -64,7 +70,6 @@ public class JumpToAdminPageServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 
 }

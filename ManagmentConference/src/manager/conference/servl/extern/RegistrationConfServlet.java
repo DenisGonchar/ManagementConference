@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import managment.conference.db.daoImpl.ConferenceDaoImpl;
 import managment.conference.db.daoImpl.SpeechDaoImpl;
@@ -45,6 +46,8 @@ public class RegistrationConfServlet extends HttpServlet {
 		String date = request.getParameter("date");
 		String time = request.getParameter("time");
 		Conference conference = new Conference(nameConf, place, date, time, "");
+		HttpSession session = request.getSession();
+		String language = (String) session.getAttribute("language");
 		try {
 			List<Conference> conferences = conferenceDaoImpl.getAllConferences();
 			List<User> users = userDaoImpl.getAllUsers();
@@ -55,7 +58,7 @@ public class RegistrationConfServlet extends HttpServlet {
 			RequestDispatcher rd = null;
 			conferenceDaoImpl.addConference(conference);
 			conferences = conferenceDaoImpl.getAllConferences();
-			rd = request.getRequestDispatcher("admin.jsp");
+			rd = request.getRequestDispatcher(language.equals("en")?"admin.jsp":"adminRUS.jsp");
 			request.setAttribute("conferences", conferences);
 			request.setAttribute("users", users);
 			request.setAttribute("speakers", speakers);

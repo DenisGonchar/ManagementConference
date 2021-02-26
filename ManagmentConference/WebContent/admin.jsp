@@ -25,9 +25,6 @@
 <h1>
 Hello <c:out value="${user.login}"></c:out>, you are moderator.
 </h1>
-<form action="" method="get">
-<input type="submit" value="English/Russian">
-</form>
 <br>
 <br>
 <div class="tableForm">

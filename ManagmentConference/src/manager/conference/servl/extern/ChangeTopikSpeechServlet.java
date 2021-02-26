@@ -43,12 +43,12 @@ public class ChangeTopikSpeechServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Speech speach = (Speech) session.getAttribute("speach");
 		User user = (User) session.getAttribute("user");
+		String language = (String) session.getAttribute("language");
 		try {
 			List<Conference> conferences = conferenceDaoImpl.getAllConferences();		
 			speachDaoImpl.changeTopic(topic, speach.getCode());
-			System.out.println(topic);
 			List<Speech> speaches = speachDaoImpl.getSpeachesByLogSpkr(user.getLogin());
-			RequestDispatcher rd = request.getRequestDispatcher("speaker.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher(language.equals("en")?"speaker.jsp":"speakerRUS.jsp");
 			request.setAttribute("conferences", conferences);
 			request.setAttribute("speaches", speaches);
 			rd.forward(request, response);

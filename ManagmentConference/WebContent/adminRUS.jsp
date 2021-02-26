@@ -25,9 +25,6 @@
 <h1>
 Привет, <c:out value="${user.login}"></c:out>, Вы, модератор.
 </h1>
-<form action="" method="get">
-<input type="submit" value="English/Russian">
-</form>
 <br>
 <br>
 <div class="tableForm">

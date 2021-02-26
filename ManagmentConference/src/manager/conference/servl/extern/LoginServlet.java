@@ -50,13 +50,14 @@ public class LoginServlet extends HttpServlet {
 		String login = request.getParameter("login");
 		String password = request.getParameter("pass");
 		HttpSession session = request.getSession();
+		String language = (String) session.getAttribute("language");
 		try {
 			User user = userDaoImpl.checkUser(new User(login, password, "", ""));
 			RequestDispatcher rd = null;
 			if(user != null) {
 				switch (user.getRolle()){
 				case "moderator":
-					rd = request.getRequestDispatcher("admin.jsp");
+					rd = request.getRequestDispatcher(language.equals("en")?"admin.jsp":"adminRUS.jsp");
 					List<User> users = userDaoImpl.getAllUsers();
 					request.setAttribute("users", users);
 					List<User> speakers = speakerDaoImpl.getAllSpeakers();
@@ -67,7 +68,7 @@ public class LoginServlet extends HttpServlet {
 					request.setAttribute("conferences", conferences);
 					break;
 				case "speaker":
-					rd = request.getRequestDispatcher("speaker.jsp");
+					rd = request.getRequestDispatcher(language.equals("en")?"speaker.jsp":"speaker.jsp");
 					speaches = speachDaoImpl.getSpeachesByLogSpkr(login);
 					conferences = conferenceDaoImpl.getAllConferences();
 					for (int i = 0; i < conferences.size(); i++) {
@@ -82,7 +83,7 @@ public class LoginServlet extends HttpServlet {
 					request.setAttribute("conferences", conferences);
 					break;
 				case "user":
-					rd = request.getRequestDispatcher("user.jsp");
+					rd = request.getRequestDispatcher(language.equals("en")?"user.jsp":"userRUS.jsp");
 					conferences = conferenceDaoImpl.getAllConferences();
 					for (int i = 0; i < conferences.size(); i++) {
 						if (userConferenceDaoImpl.checkUser(user, conferences.get(i).getCode())) {
@@ -97,7 +98,7 @@ public class LoginServlet extends HttpServlet {
 				}
 				session.setAttribute("user", user);
 			}else {
-				rd = request.getRequestDispatcher("login.jsp");
+				rd = request.getRequestDispatcher(language.equals("en")?"login.jsp":"loginRUS.jsp");
 				request.setAttribute("Error", "Incorrect login or password");
 			}
 			rd.forward(request, response);

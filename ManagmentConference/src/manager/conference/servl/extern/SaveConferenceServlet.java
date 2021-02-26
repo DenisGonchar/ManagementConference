@@ -47,9 +47,10 @@ public class SaveConferenceServlet extends HttpServlet {
 		conference.setPlace(request.getParameter("place"));
 		conference.setDate(request.getParameter("date"));
 		conference.setTime(request.getParameter("time"));
+		String language = (String) session.getAttribute("language");
 		try {
 			conferenceDaoImpl.updateConference(conference);
-			RequestDispatcher rd = request.getRequestDispatcher("admin.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher(language.equals("en")?"admin.jsp":"adminRUS.jsp");
 			List<User> users = userDaoImpl.getAllUsers();
 			List<User> speakers = userDaoImpl.getAllSpeakers();
 			List<Conference> conferences = conferenceDaoImpl.getAllConferences();

@@ -52,7 +52,7 @@
 <input type="submit" class="gradient-button" value="       Войти       "/>
 </form>
 <form action= "jumptoregistration" method= "get">
-<input type="submit" class="gradient-button" value=" Регистрция ">
+<input type="submit" class="gradient-button" value="   Регистрция  ">
 </form>
 <div id = "Error">
 <c:out value="${Error}"></c:out>

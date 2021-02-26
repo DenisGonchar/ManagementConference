@@ -10,10 +10,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import managment.conference.db.daoImpl.ConferenceDaoImpl;
 import managment.conference.db.daoImpl.SpeechDaoImpl;
-import managment.conference.db.daoImpl.SpeechesConferenceDaoImpl;
 import managment.conference.db.daoImpl.UserConferenceDaoImpl;
 import managment.conference.db.daoImpl.UserDaoImpl;
 import manegment.conference.classes.Conference;
@@ -34,7 +34,7 @@ public class DelUserServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -44,7 +44,8 @@ public class DelUserServlet extends HttpServlet {
 		SpeechDaoImpl speachDaoImpl = new SpeechDaoImpl();
 		ConferenceDaoImpl conferenceDaoImpl = new ConferenceDaoImpl();
 		UserConferenceDaoImpl userConferenceDaoImpl = new UserConferenceDaoImpl();
-		SpeechesConferenceDaoImpl speachesConferenceDaoImpl = new SpeechesConferenceDaoImpl();
+		HttpSession session = request.getSession();
+		String language = (String) session.getAttribute("language");
 		try {
 			List<User> users = userDaoImpl.getAllUsers();
 			List<User> speakers = speakerDaoImpl.getAllSpeakers();
@@ -65,10 +66,7 @@ public class DelUserServlet extends HttpServlet {
 				String login = speakers.get(i).getLogin();
 				if (request.getParameter(login) != null) {
 					speaches = speachDaoImpl.getSpeachesByLogSpkr(speakers.get(i).getLogin());
-					for (int j = 0; j < speaches.size(); j++) {
-						//speachesConferenceDaoImpl.delSpeachConfByCodeSpeach(speaches.get(j).getCode());
-						
-					}
+					speachDaoImpl.changeAllLogin("freeSpeaker", login);
 					userConferenceDaoImpl.delUser(speakers.get(i));
 					speakerDaoImpl.removeUser(speakers.get(i));
 					speakers.remove(i);
@@ -83,7 +81,7 @@ public class DelUserServlet extends HttpServlet {
 			request.setAttribute("speakers", speakers);
 			request.setAttribute("conferences", conferences);
 			request.setAttribute("speaches", speaches);
-			RequestDispatcher rd = request.getRequestDispatcher("admin.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher(language.equals("en")?"admin.jsp":"adminRUS.jsp");
 			rd.forward(request, response);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

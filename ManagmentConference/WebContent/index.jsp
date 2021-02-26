@@ -31,6 +31,9 @@
 .gradient-button:hover {
   background-position: right center;
 }
+.tableForm{
+color: white;
+}
 </style>
 </head>
 <body>
@@ -40,6 +43,12 @@ Welcome to our conference!
 Press here for enter.
 </h1>
 <form action="jumptologin" method="get"> 
+<div class="tableForm">
+Russian
+<input type="radio" name="language" value="ru">
+English
+<input type="radio" name="language" value="en" checked="checked">
+</div>
 <input type="submit" class="gradient-button" value="Start Conference!"/>
 </form>
 </body>

@@ -23,13 +23,13 @@ import manegment.conference.classes.User;
  * Servlet implementation class RegUserByConference
  */
 @WebServlet("/reguserbyconference")
-public class RegUserByConference extends HttpServlet {
+public class RegUserByConferenceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegUserByConference() {
+    public RegUserByConferenceServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,11 +38,12 @@ public class RegUserByConference extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession httpSession = request.getSession();
-		User user = (User) httpSession.getAttribute("user");
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
 		ConferenceDaoImpl conferenceDaoImpl = new ConferenceDaoImpl();
 		UserConferenceDaoImpl userConferenceDaoImpl = new UserConferenceDaoImpl();
 		List<PropConference> propConferences = new ArrayList<>();
+		String language = (String) session.getAttribute("language");
 		try {
 			List<Conference> conferences = conferenceDaoImpl.getAllConferences();
 			RequestDispatcher rd = null;
@@ -60,7 +61,7 @@ public class RegUserByConference extends HttpServlet {
 			}
 			request.setAttribute("propConferences", propConferences);
 			request.setAttribute("conferences", conferences);
-			rd = request.getRequestDispatcher("user.jsp");
+			rd = request.getRequestDispatcher(language.equals("en")?"user.jsp":"userRUS.jsp");
 			rd.forward(request, response);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

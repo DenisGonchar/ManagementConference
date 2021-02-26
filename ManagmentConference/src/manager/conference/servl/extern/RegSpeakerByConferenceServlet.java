@@ -25,13 +25,13 @@ import manegment.conference.classes.User;
  * Servlet implementation class RegSpeakerByConference
  */
 @WebServlet("/regspeakerbyconference")
-public class RegSpeakerByConference extends HttpServlet {
+public class RegSpeakerByConferenceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegSpeakerByConference() {
+    public RegSpeakerByConferenceServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,12 +40,13 @@ public class RegSpeakerByConference extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession httpSession = request.getSession();
-		User user = (User) httpSession.getAttribute("user");
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
 		ConferenceDaoImpl conferenceDaoImpl = new ConferenceDaoImpl();
 		UserConferenceDaoImpl userConferenceDaoImpl = new UserConferenceDaoImpl();
 		SpeechDaoImpl speachDaoImpl = new SpeechDaoImpl();
 		List<PropConference> propConferences = new ArrayList<>();
+		String language = (String) session.getAttribute("language");
 		try {
 			List<Speech> speaches = speachDaoImpl.getSpeachesByLogSpkr(user.getLogin());
 			List<Conference> conferences = conferenceDaoImpl.getAllConferences();
@@ -64,7 +65,7 @@ public class RegSpeakerByConference extends HttpServlet {
 			request.setAttribute("speaches", speaches);
 			request.setAttribute("propConferences", propConferences);
 			request.setAttribute("conferences", conferences);
-			rd = request.getRequestDispatcher("speaker.jsp");
+			rd = request.getRequestDispatcher(language.equals("en")?"speaker.jsp":"speakerRUS.jsp");
 			rd.forward(request, response);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

@@ -17,7 +17,7 @@ public class SpeechDaoImpl implements SpeechDao{
 
 	@Override
 	public List<Speech> getAllSpeaches() throws ClassNotFoundException, SQLException {
-		query = "SELECT * FROM speach";
+		query = "SELECT * FROM speach ORDER BY code ASC";
 		dbproperties.openDB();
 		dbproperties.createPreparedStatement(query);
 		ResultSet rs = dbproperties.createResult();
@@ -53,12 +53,6 @@ public class SpeechDaoImpl implements SpeechDao{
 		dbproperties.setAddParametersToSpeach(speach.getNameSpeach(), speach.getTime(), speach.getInterval(), speach.getLogin(), speach.getCode());
 		dbproperties.updateResult();
 		dbproperties.closeDB();
-		
-	}
-
-	@Override
-	public void removeSpeach(Speech speach) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -127,11 +121,31 @@ public class SpeechDaoImpl implements SpeechDao{
 	}
 
 	@Override
-	public void changeLogin(String login, String code) throws SQLException, ClassNotFoundException {
-		query = "UPDATE speach SET login=? WHERE code =?";
+	public void changeLogin(String oldlogin, String newLogin, String code) throws SQLException, ClassNotFoundException {
+		query = "UPDATE speach SET login=? WHERE login =? AND code =?";
 		dbproperties.openDB();
 		dbproperties.createPreparedStatement(query);
-		dbproperties.setUpdateParametersChangeLogin(login, code);
+		dbproperties.setUpdateParametersChangeLogin(oldlogin, newLogin, code);
+		dbproperties.updateResult();
+		dbproperties.closeDB();
+		
+	}
+	@Override
+	public void changeAllLogin(String oldlogin, String newLogin) throws SQLException, ClassNotFoundException {
+		query = "UPDATE speach SET login=? WHERE login =?";
+		dbproperties.openDB();
+		dbproperties.createPreparedStatement(query);
+		dbproperties.setUpdateParametersChangeTopic(oldlogin, newLogin);
+		dbproperties.updateResult();
+		dbproperties.closeDB();
+		
+	}
+	@Override
+	public void removeSpeech(String code) throws SQLException, ClassNotFoundException {
+		query = "DELETE FROM speach WHERE code =?";
+		dbproperties.openDB();
+		dbproperties.createPreparedStatement(query);
+		dbproperties.setParametersDelSpeech(code);
 		dbproperties.updateResult();
 		dbproperties.closeDB();
 		
@@ -141,7 +155,7 @@ public class SpeechDaoImpl implements SpeechDao{
 		query = "UPDATE speach SET nameSpeach=? WHERE code =?";
 		dbproperties.openDB();
 		dbproperties.createPreparedStatement(query);
-		dbproperties.setUpdateParametersChangeLogin(nameSpeach, code);
+		dbproperties.setUpdateParametersChangeTopic(nameSpeach, code);
 		dbproperties.updateResult();
 		dbproperties.closeDB();
 		

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class JumpToFirstStartPageServlet
@@ -28,7 +29,10 @@ public class JumpToLoginPageServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+		String language = request.getParameter("language");
+		HttpSession session = request.getSession();
+		session.setAttribute("language", language);
+		RequestDispatcher rd = request.getRequestDispatcher(language.equals("en")?"login.jsp":"loginRUS.jsp");
 		rd.forward(request, response);
 	}
 

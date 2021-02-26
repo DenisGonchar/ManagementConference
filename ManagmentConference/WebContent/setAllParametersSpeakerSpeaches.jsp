@@ -8,9 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-Speaker, <c:out value="${user.login}"></c:out>, edition speech - <c:out value="${speach.nameSpeach}"></c:out>.
-<form action="changespeechservlet" method="get">
-<input type="text" placeholder="Name of Speach" value='<c:out value="${speach.nameSpeach}"></c:out>' name = "nameSpeech">
+<form action="changeparametersspeechservlet" method="get">
+<input type="text" placeholder="Name of Speach" value='<c:out value="${speach.nameSpeach}"></c:out>' name = "nameSpeach">
 <input type="text" placeholder="Time of Speach" value='<c:out value="${speach.time}"></c:out>' name = "time">
 <input type="text" placeholder="Interval of Speach" value='<c:out value="${speach.interval}"></c:out>' name = "interval">
 <input type="text" placeholder="Speaker of Speach" value='<c:out value="${speach.login}"></c:out>' name = "login">

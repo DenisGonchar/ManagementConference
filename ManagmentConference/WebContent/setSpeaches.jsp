@@ -26,7 +26,7 @@
 This is list of speaches from confernce: <c:out value="${conference.nameConf}"></c:out>. You can remove and change name of it.
 </h1>
 <div class="tableForm">
-<form action="deleditconference" method="get">
+<form action="deleditspeechservlet" method="get">
 <table>
 <c:forEach items="${speaches}" var="s">
 <tr>

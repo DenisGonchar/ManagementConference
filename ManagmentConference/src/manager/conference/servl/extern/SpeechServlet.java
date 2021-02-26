@@ -2,6 +2,7 @@ package manager.conference.servl.extern;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -14,7 +15,9 @@ import javax.servlet.http.HttpSession;
 
 import managment.conference.db.daoImpl.ConferenceDaoImpl;
 import managment.conference.db.daoImpl.SpeechDaoImpl;
+import managment.conference.db.daoImpl.UserConferenceDaoImpl;
 import manegment.conference.classes.Conference;
+import manegment.conference.classes.PropConference;
 import manegment.conference.classes.Speech;
 import manegment.conference.classes.User;
 /**
@@ -38,29 +41,40 @@ public class SpeechServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	SpeechDaoImpl speachDaoImpl = new SpeechDaoImpl();
 		ConferenceDaoImpl conferenceDaoImpl = new ConferenceDaoImpl();
+		UserConferenceDaoImpl userConferenceDaoImpl = new UserConferenceDaoImpl();
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
+		String language = (String) session.getAttribute("language");
 		String page = null;
 		try {
+			List<PropConference> propConferences = new ArrayList<>();
 			List<Speech> speaches = speachDaoImpl.getSpeachesByLogSpkr(user.getLogin());
 			List<Conference> conferences = conferenceDaoImpl.getAllConferences();		
 			RequestDispatcher rd = null;
 			for (int i = speaches.size()-1; i >= 0 ; i--) {
 				String code = speaches.get(i).getCode();
 				if(request.getParameter("d" + code) != null) {
-					page = "speaker.jsp";
-					speachDaoImpl.changeLogin("freeSpeaker", code);
+					page = language.equals("en")?"speaker.jsp":"speakerRUS.jsp";
+					speachDaoImpl.changeLogin("freeSpeaker", user.getLogin(), speaches.get(i).getCode());
 					speaches.remove(i);
 					break;
 				}
 				if (request.getParameter("e" + code) != null) {
-					page = "setSpeakerSpeaches.jsp";
+					page = language.equals("en")?"setSpeakerSpeaches.jsp":"setSpeakerSpeachesRUS.jsp";
 					session.setAttribute("speach", speaches.get(i));
 					break;
 				}
 			}
+			for (int i = 0; i < conferences.size(); i++) {
+				if (userConferenceDaoImpl.checkUser(user, conferences.get(i).getCode())) {
+					propConferences.add(new PropConference(conferences.get(i), true));
+				} else {
+					propConferences.add(new PropConference(conferences.get(i), false));
+				}
+			}
 			rd = request.getRequestDispatcher(page);
-			request.setAttribute("conferences", conferences);
+			System.out.println(conferences.size());
+			request.setAttribute("propConferences", propConferences);
 			request.setAttribute("speaches", speaches);
 			rd.forward(request, response);
 		} catch (ClassNotFoundException e) {

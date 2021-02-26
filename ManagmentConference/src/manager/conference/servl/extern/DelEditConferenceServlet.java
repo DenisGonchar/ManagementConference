@@ -24,13 +24,13 @@ import manegment.conference.classes.User;
  * Servlet implementation class DelEditConference
  */
 @WebServlet("/deleditconference")
-public class DelEditConference extends HttpServlet {
+public class DelEditConferenceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DelEditConference() {
+    public DelEditConferenceServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,6 +45,7 @@ public class DelEditConference extends HttpServlet {
 		SpeechDaoImpl speachDaoImpl = new SpeechDaoImpl();
 		String page = null;
 		HttpSession session = request.getSession();
+		String language = (String) session.getAttribute("language");
 		try {
 			List<Conference> conferences = conferenceDaoImpl.getAllConferences();
 			List<User> users = userDaoImpl.getAllUsers();
@@ -52,34 +53,28 @@ public class DelEditConference extends HttpServlet {
 			List<Speech> speaches = speachDaoImpl.getAllSpeaches();
 			for (int i = conferences.size()-1; i >= 0; i--) {
 				String code = conferences.get(i).getCode();
-				String codeSp = speaches.get(i).getCode();
 				if(request.getParameter("d" + code) != null) {
 					conferenceDaoImpl.removeConference(conferences.get(i));
 					conferences.remove(i);
-					page = "admin.jsp";
+					page = language.equals("en")?"admin.jsp":"adminRUS.jsp";
 					break;
 				}
 				if (request.getParameter("e" + code) != null) {
-					page = "regConferences.jsp";
+					page = language.equals("en")?"regConferences.jsp":"regConferencesRUS.jsp";
 					session.setAttribute("conference", conferences.get(i));
 					break;
 				}
 				if (request.getParameter("s" + code) != null) {
-					page = "showUser.jsp";
+					page = language.equals("en")?"showUser.jsp":"showUserRUS.jsp";
 					session.setAttribute("conference", conferences.get(i));
 					users.clear();
 					users = userConferenceDaoImpl.getUsersByCode(conferences.get(i).getCode());
 					break;
 				}	
 				if (request.getParameter("set" + code) != null) {
-					page = "setSpeaches.jsp";
+					page = language.equals("en")?"setSpeaches.jsp":"setSpeachesRUS.jsp";
 					session.setAttribute("conference", conferences.get(i));
 					speaches = speachDaoImpl.getSpeachbyConference(conferences.get(i));
-					if (request.getParameter("ch" + codeSp) != null) {
-						page = "setAllParametersSpeakerSpeaches.jsp";
-						session.setAttribute("speach", speaches.get(i));
-						break;
-					}
 					break;
 				}
 			}
