@@ -1,6 +1,6 @@
 package manegment.conference.classes;
 
-public class Speach {
+public class Speech {
     private String nameSpeach;
     private String time;
     private String interval;
@@ -17,7 +17,7 @@ public class Speach {
 		this.code = code;
 	}
 
-	public Speach(String nameSpeach, String time, String interval, String login, String code) {
+	public Speech(String nameSpeach, String time, String interval, String login, String code) {
 		super();
 		this.nameSpeach = nameSpeach;
 		this.time = time;
@@ -26,7 +26,7 @@ public class Speach {
 		this.code = code;
 	}
 
-	public Speach() {
+	public Speech() {
     }
 
     public String getNameSpeach() {

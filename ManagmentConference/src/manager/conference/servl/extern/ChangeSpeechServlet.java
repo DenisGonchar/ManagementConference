@@ -12,22 +12,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import managment.conference.db.daoImpl.SpeachDaoImpl;
-import managment.conference.db.daoImpl.SpeachesConferenceDaoImpl;
+import managment.conference.db.daoImpl.ConferenceDaoImpl;
+import managment.conference.db.daoImpl.SpeechDaoImpl;
 import manegment.conference.classes.Conference;
-import manegment.conference.classes.Speach;
+import manegment.conference.classes.Speech;
 
 /**
- * Servlet implementation class AddNewSpeachServlet
+ * Servlet implementation class ChangeSpeechServlet
  */
-@WebServlet("/addnewspeachservlet")
-public class AddNewSpeachServlet extends HttpServlet {
+@WebServlet("/changespeechservlet")
+public class ChangeSpeechServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddNewSpeachServlet() {
+    public ChangeSpeechServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,21 +36,22 @@ public class AddNewSpeachServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		SpeachDaoImpl speachDaoImpl = new SpeachDaoImpl();
-		SpeachesConferenceDaoImpl speachesConferenceDaoImpl = new SpeachesConferenceDaoImpl();
-		HttpSession session = request.getSession();
-		String nameSpeach = request.getParameter("nameSpeach");
+		SpeechDaoImpl speachDaoImpl = new SpeechDaoImpl();
+		ConferenceDaoImpl conferenceDaoImpl = new ConferenceDaoImpl();
+		String nameSpeech = request.getParameter("nameSpeech");
 		String time = request.getParameter("time");
 		String interval = request.getParameter("interval");
+		String login = request.getParameter("login");
+		HttpSession session = request.getSession();
+		Speech speach = (Speech) session.getAttribute("speach");
+		Conference conference = (Conference) session.getAttribute("conference");
 		try {
-			List<Speach> speaches = speachDaoImpl.getAllSpeaches();
-			String code = "H" + (Integer.parseInt(speaches.get(speaches.size()-1).getCode().substring(1))+1);
-			speachDaoImpl.addSpeach(new Speach(nameSpeach, time, interval, "freeSpeaker", code));
-			Conference conference = (Conference) session.getAttribute("conference");
-			speachesConferenceDaoImpl.addSpeachConf(conference.getCode(), code);
-			speaches = speachDaoImpl.getSpeachbyConference(conference);
-			request.setAttribute("speaches", speaches);
+			List<Conference> conferences = conferenceDaoImpl.getAllConferences();
+			speachDaoImpl.changeParamSpeech(nameSpeech, time, interval, login, speach.getCode());
+			List<Speech> speaches = speachDaoImpl.getSpeachbyConference(conference);
 			RequestDispatcher rd = request.getRequestDispatcher("setSpeaches.jsp");
+			request.setAttribute("conferences", conferences);
+			request.setAttribute("speaches", speaches);
 			rd.forward(request, response);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -60,4 +61,5 @@ public class AddNewSpeachServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+
 }

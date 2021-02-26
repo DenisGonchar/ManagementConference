@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import managment.conference.db.daoImpl.ConferenceDaoImpl;
 import managment.conference.db.daoImpl.UserConferenceDaoImpl;
 import manegment.conference.classes.Conference;
+import manegment.conference.classes.PropConference;
 import manegment.conference.classes.User;
 
 /**
@@ -41,7 +42,7 @@ public class RegUserByConference extends HttpServlet {
 		User user = (User) httpSession.getAttribute("user");
 		ConferenceDaoImpl conferenceDaoImpl = new ConferenceDaoImpl();
 		UserConferenceDaoImpl userConferenceDaoImpl = new UserConferenceDaoImpl();
-		List<Boolean> regconf = new ArrayList<Boolean>();
+		List<PropConference> propConferences = new ArrayList<>();
 		try {
 			List<Conference> conferences = conferenceDaoImpl.getAllConferences();
 			RequestDispatcher rd = null;
@@ -52,12 +53,12 @@ public class RegUserByConference extends HttpServlet {
 					}
 				}
 				if(userConferenceDaoImpl.checkUser(user, conferences.get(i).getCode())) {
-					regconf.add(true);
+					propConferences.add(new PropConference(conferences.get(i), true));
 				} else {
-					regconf.add(false);
+					propConferences.add(new PropConference(conferences.get(i), false));
 				}
 			}
-			request.setAttribute("regconf", regconf);
+			request.setAttribute("propConferences", propConferences);
 			request.setAttribute("conferences", conferences);
 			rd = request.getRequestDispatcher("user.jsp");
 			rd.forward(request, response);

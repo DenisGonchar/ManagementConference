@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -23,7 +23,7 @@
 </head>
 <body>
 <h1>
-This is list of speaches from confernce: <c:out value="${conference.nameConf}"></c:out>. You can remove and change name of it.
+Это список докладов из конференции под названием: <c:out value="${conference.nameConf}"></c:out>. Вы можете удалить или изменить название доклада.
 </h1>
 <div class="tableForm">
 <form action="deleditconference" method="get">
@@ -43,10 +43,10 @@ Interval: <c:out value="${s.interval}"></c:out> min.
 |login: <c:out value="${s.login}"></c:out>|
 </td>
 <td>
-<input type="submit" value="Change parameters of this speach" name="ch<c:out value="${s.code}"></c:out>">
+<input type="submit" value="Изменить название доклада" name="e<c:out value="${s.code}"></c:out>">
 </td>
 <td>
-<input type="submit" value="delete" name="d<c:out value="${s.code}"></c:out>">
+<input type="submit" value="Удалить" name="d<c:out value="${s.code}"></c:out>">
 </td>
 </tr>
 </c:forEach>
@@ -54,10 +54,10 @@ Interval: <c:out value="${s.interval}"></c:out> min.
 </form>
 </div>
 <form action="jumptoaddspeach" method="get">
-<input type="submit" value="Add new speach">
+<input type="submit" value="Добавить новый доклад">
 </form>
 <form action="jumptoadminpageservlet" method="get">
-<input type="submit" value="Back">
+<input type="submit" value="Назад">
 </form>
 </body>
 </html>

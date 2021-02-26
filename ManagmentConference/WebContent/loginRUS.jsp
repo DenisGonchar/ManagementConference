@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,36 +32,31 @@
 .gradient-button:hover {
   background-position: right center;
 }
-form {
-  text-align: center;
-}
 #mainForm{
 	position: absolute;
 	top: 150px;
 	left: 370px;
+}
+#Error{
+	color: red;
 }
 </style>
 </head>
 <body>
 <div id = "mainForm">
 <form action="loginservlet" method="get">
-<input type="text" name="login" placeholder="Input Your Login" />
+<input type="text" name="login" placeholder="Введите ваш логин" />
 <br>
-<input type="password" name="pass" placeholder="Input Your Password" />
+<input type="password" name="pass" placeholder="Введите ваш пароль" />
 <br>
-<input type="submit" class="gradient-button" value="       Login       "/>
-<%
-String error = (String) request.getAttribute("Error");
-if(error != null){
-	%>
-	<b><%=error%></b>
-	<%
-}
-%>
+<input type="submit" class="gradient-button" value="       Войти       "/>
 </form>
 <form action= "jumptoregistration" method= "get">
-<input type="submit" class="gradient-button" value=" Registration ">
+<input type="submit" class="gradient-button" value=" Регистрция ">
 </form>
+<div id = "Error">
+<c:out value="${Error}"></c:out>
+</div>
 </div>
 </body>
 </html>

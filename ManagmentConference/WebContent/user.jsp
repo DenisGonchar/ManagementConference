@@ -31,23 +31,23 @@ Hello, <c:out value="${user.login}"></c:out>, you are user.
 This is list of conferences. You can register for one of them.
 <form action="reguserbyconference" method="get">
 <table>
-<c:forEach items="${conferences}" var="c">
+<c:forEach items="${propConferences}" var="pc">
 <tr>
 <td>
-<c:out value="${c.nameConf}"></c:out>
+<c:out value="${pc.conference.nameConf}"></c:out>
 </td>
 <td>
-<c:out value="${c.place}"></c:out>
+<c:out value="${pc.conference.place}"></c:out>
 </td>
 <td>
-<c:out value="${c.date}"></c:out>
+<c:out value="${pc.conference.date}"></c:out>
 </td>
 <td>
-<c:out value="${c.time}"></c:out>
+<c:out value="${pc.conference.time}"></c:out>
 </td>
 <td>
-<c:if test="${!regconf}">
-<input type="submit" value="Registration" name="<c:out value="${c.code}"></c:out>">
+<c:if test="${pc.registration == false}">
+<input type="submit" value="Registration" name="<c:out value="${pc.conference.code}"></c:out>">
 </c:if>
 </td>
 </tr>

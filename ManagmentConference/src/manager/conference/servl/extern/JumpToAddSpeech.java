@@ -13,13 +13,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class JampToAddSpeach
  */
 @WebServlet("/jumptoaddspeach")
-public class JumpToAddSpeach extends HttpServlet {
+public class JumpToAddSpeech extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public JumpToAddSpeach() {
+    public JumpToAddSpeech() {
         super();
         // TODO Auto-generated constructor stub
     }

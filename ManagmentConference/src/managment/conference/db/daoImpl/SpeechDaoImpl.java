@@ -7,23 +7,23 @@ import java.util.List;
 
 import manegment.conference.classes.Conference;
 import manegment.conference.classes.DBProperties;
-import manegment.conference.classes.Speach;
-import menegment.conference.db.dao.SpeachDao;
+import manegment.conference.classes.Speech;
+import menegment.conference.db.dao.SpeechDao;
 
-public class SpeachDaoImpl implements SpeachDao{
+public class SpeechDaoImpl implements SpeechDao{
 	private DBProperties dbproperties = new DBProperties();
-	private List<Speach> speaches = new ArrayList<>();
+	private List<Speech> speaches = new ArrayList<>();
 	private String query;
 
 	@Override
-	public List<Speach> getAllSpeaches() throws ClassNotFoundException, SQLException {
+	public List<Speech> getAllSpeaches() throws ClassNotFoundException, SQLException {
 		query = "SELECT * FROM speach";
 		dbproperties.openDB();
 		dbproperties.createPreparedStatement(query);
 		ResultSet rs = dbproperties.createResult();
 		speaches.clear();
 		while (rs.next()) {
-			speaches.add(new Speach(rs.getString("nameSpeach"), rs.getString("time"), rs.getString("intervals"), 
+			speaches.add(new Speech(rs.getString("nameSpeach"), rs.getString("time"), rs.getString("intervals"), 
 					rs.getString("login"), rs.getString("code")));
 		}
 		dbproperties.closeDB();
@@ -31,14 +31,14 @@ public class SpeachDaoImpl implements SpeachDao{
 	}
 
 	@Override
-	public Speach checkSpeach(Speach speach) throws SQLException, ClassNotFoundException {
+	public Speech checkSpeach(Speech speach) throws SQLException, ClassNotFoundException {
 		query = "SELECT * FROM speach WHERE nameSpeach=? AND time=?";
 		dbproperties.openDB();
 		dbproperties.createPreparedStatement(query);
 		ResultSet rs = dbproperties.createResult();
-		Speach u = null;
+		Speech u = null;
 		if(rs.next()) {
-			u = new Speach(rs.getString("nameSpeach"), rs.getString("time"), rs.getString("intervals"), 
+			u = new Speech(rs.getString("nameSpeach"), rs.getString("time"), rs.getString("intervals"), 
 					rs.getString("login"), rs.getString("code"));
 		}
 		dbproperties.closeDB();
@@ -46,7 +46,7 @@ public class SpeachDaoImpl implements SpeachDao{
 	}
 
 	@Override
-	public void addSpeach(Speach speach) throws ClassNotFoundException, SQLException {
+	public void addSpeach(Speech speach) throws ClassNotFoundException, SQLException {
 		query = "INSERT INTO speach (nameSpeach, time, intervals, login, code) VALUES (?, ?, ?, ?, ?)";
 		dbproperties.openDB();
 		dbproperties.createPreparedStatement(query);
@@ -57,13 +57,13 @@ public class SpeachDaoImpl implements SpeachDao{
 	}
 
 	@Override
-	public void removeSpeach(Speach speach) {
+	public void removeSpeach(Speech speach) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void updateSpeach(Speach speach) {
+	public void updateSpeach(Speech speach) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -79,7 +79,7 @@ public class SpeachDaoImpl implements SpeachDao{
 	}
 
 	@Override
-	public List<Speach> getSpeachbyConference(Conference conference) throws ClassNotFoundException, SQLException {
+	public List<Speech> getSpeachbyConference(Conference conference) throws ClassNotFoundException, SQLException {
 		query = "SELECT * FROM speachesconference WHERE codeConf =?";
 		dbproperties.openDB();
 		dbproperties.createPreparedStatement(query);
@@ -98,28 +98,28 @@ public class SpeachDaoImpl implements SpeachDao{
 	}
 
 	@Override
-	public Speach getSpeachByCode(String code) throws ClassNotFoundException, SQLException {
+	public Speech getSpeachByCode(String code) throws ClassNotFoundException, SQLException {
 		query = "SELECT * FROM speach WHERE code =?";
 		dbproperties.openDB();
 		dbproperties.createPreparedStatement(query);
 		dbproperties.setParameterSpeachCode(code);
 		ResultSet rs = dbproperties.createResult();
 		rs.next();
-		Speach speach = new Speach(rs.getString("nameSpeach"), rs.getString("time"), rs.getString("intervals"),
+		Speech speach = new Speech(rs.getString("nameSpeach"), rs.getString("time"), rs.getString("intervals"),
 				rs.getString("login"), rs.getString("code"));
 		dbproperties.closeDB();
 		return speach;
 	}
 
 	@Override
-	public List<Speach> getSpeachesByLogSpkr(String login) throws SQLException, ClassNotFoundException {
+	public List<Speech> getSpeachesByLogSpkr(String login) throws SQLException, ClassNotFoundException {
 		query = "SELECT * FROM speach WHERE login =?";
 		dbproperties.openDB();
 		dbproperties.createPreparedStatement(query);
 		dbproperties.setParameterSpeachCode(login);
 		ResultSet rs = dbproperties.createResult();
 		while (rs.next()) {
-			speaches.add(new Speach(rs.getString("nameSpeach"), rs.getString("time"), rs.getString("intervals"),
+			speaches.add(new Speech(rs.getString("nameSpeach"), rs.getString("time"), rs.getString("intervals"),
 				rs.getString("login"), rs.getString("code")));
 		}
 		dbproperties.closeDB();
@@ -142,6 +142,16 @@ public class SpeachDaoImpl implements SpeachDao{
 		dbproperties.openDB();
 		dbproperties.createPreparedStatement(query);
 		dbproperties.setUpdateParametersChangeLogin(nameSpeach, code);
+		dbproperties.updateResult();
+		dbproperties.closeDB();
+		
+	}
+	@Override
+	public void changeParamSpeech(String nameSpeach, String time, String interval, String login, String code) throws SQLException, ClassNotFoundException {
+		query = "UPDATE speach SET nameSpeach=?, time=?, intervals=?, login=? WHERE code =?";
+		dbproperties.openDB();
+		dbproperties.createPreparedStatement(query);
+		dbproperties.setUpdateAllParametersSpeech(nameSpeach, time, interval, login, code);
 		dbproperties.updateResult();
 		dbproperties.closeDB();
 		

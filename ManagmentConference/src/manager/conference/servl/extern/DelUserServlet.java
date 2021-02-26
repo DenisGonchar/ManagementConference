@@ -12,12 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import managment.conference.db.daoImpl.ConferenceDaoImpl;
-import managment.conference.db.daoImpl.SpeachDaoImpl;
-import managment.conference.db.daoImpl.SpeachesConferenceDaoImpl;
+import managment.conference.db.daoImpl.SpeechDaoImpl;
+import managment.conference.db.daoImpl.SpeechesConferenceDaoImpl;
 import managment.conference.db.daoImpl.UserConferenceDaoImpl;
 import managment.conference.db.daoImpl.UserDaoImpl;
 import manegment.conference.classes.Conference;
-import manegment.conference.classes.Speach;
+import manegment.conference.classes.Speech;
 import manegment.conference.classes.User;
 
 /**
@@ -41,15 +41,15 @@ public class DelUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserDaoImpl userDaoImpl = new UserDaoImpl();
 		UserDaoImpl speakerDaoImpl = new UserDaoImpl();
-		SpeachDaoImpl speachDaoImpl = new SpeachDaoImpl();
+		SpeechDaoImpl speachDaoImpl = new SpeechDaoImpl();
 		ConferenceDaoImpl conferenceDaoImpl = new ConferenceDaoImpl();
 		UserConferenceDaoImpl userConferenceDaoImpl = new UserConferenceDaoImpl();
-		SpeachesConferenceDaoImpl speachesConferenceDaoImpl = new SpeachesConferenceDaoImpl();
+		SpeechesConferenceDaoImpl speachesConferenceDaoImpl = new SpeechesConferenceDaoImpl();
 		try {
 			List<User> users = userDaoImpl.getAllUsers();
 			List<User> speakers = speakerDaoImpl.getAllSpeakers();
 			List<Conference> conferences = conferenceDaoImpl.getAllConferences();
-			List<Speach> speaches = speachDaoImpl.getAllSpeaches();
+			List<Speech> speaches = speachDaoImpl.getAllSpeaches();
 			for (int i = users.size()-1; i >= 0; i--) {
 				String login = users.get(i).getLogin();
 				if (request.getParameter(login) != null) {

@@ -1,7 +1,6 @@
-<%@page import="manegment.conference.classes.Speach"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ page import="manegment.conference.classes.User, manegment.conference.classes.Conference, java.util.ArrayList"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +14,7 @@
     color: white;
     padding: 1px;
    }
-    h5 {
+    .tableForm {
     background: #bdb4c2;
     color: black;
     padding: 1px;
@@ -23,86 +22,69 @@
 </style>
 </head>
 <body>
-<%
-User user = (User)session.getAttribute("user");
-%>
 <h1>
-Hello <%=user.getLogin() %>, you are speaker.
+Hello <c:out value="${user.login}"></c:out>, you are speaker.
 </h1>
-<%
-ArrayList<Speach> speaches = (ArrayList<Speach>)request.getAttribute("speaches");
-%>
-<h5>
-This is list of yours speaches. You can remove and change name of it.
+<div class="tableForm">
+Это список ваших докладов. Выможете удалить или изменить их тему.
 <form action="speachservlet" method="get">
 <table>
-
-<%
-for(int i=0; i<speaches.size(); i++){
-%>
+<c:forEach items="${speaches}" var="s">
 <tr>
 <td>
-"<%=speaches.get(i).getNameSpeach() %>"
+<c:out value="${s.nameSpeach}"></c:out>
 </td>
 <td>
-<%=speaches.get(i).getTime() %>
+Begin: <c:out value="${s.time}"></c:out>
 </td>
 <td>
-<%=speaches.get(i).getInterval() %>
+Interval: <c:out value="${s.interval}"></c:out> min.
 </td>
 <td>
-<%=speaches.get(i).getLogin() %>
+<c:out value="${s.login}"></c:out>
+</td>
+<td>
+<input type="submit" value="Именить" name="e<c:out value="${s.code}"></c:out>">
+</td>
+<td>
+<input type="submit" value="Удалить" name="d<c:out value="${s.code}"></c:out>">
 </td>
 </tr>
-<%
-}%>
+</c:forEach>
 </table>
 </form>
-</h5>
-<%
-ArrayList<Conference> conferences = (ArrayList<Conference>)request.getAttribute("conferences");
-ArrayList<Boolean> regconf = (ArrayList<Boolean>)request.getAttribute("regconf");
-%>
+</div>
 <br>
-<h5>
-This is list of conferences. You can register for one of them.
+<div class="tableForm">
+Это список всех конференций. Вы можете принять в них участие.
 <form action="regspeakerbyconference" method="get">
 <table>
-
-<%
-for(int i=0; i<conferences.size(); i++){
-	
-%>
+<c:forEach items="${propConferences}" var="pc">
 <tr>
 <td>
-<%=conferences.get(i).getNameConf() %>
+<c:out value="${pc.conference.nameConf}"></c:out>
 </td>
 <td>
-<%=conferences.get(i).getPlace() %>
+<c:out value="${pc.conference.place}"></c:out>
 </td>
 <td>
-<%=conferences.get(i).getDate() %>
+<c:out value="${pc.conference.date}"></c:out>
 </td>
 <td>
-<%=conferences.get(i).getTime() %>
+<c:out value="${pc.conference.time}"></c:out>
 </td>
 <td>
-<%
-if(!regconf.get(i)){
-%>
-<input type="submit" value="Registration" name="<%= conferences.get(i).getCode() %>">
-<%
-} 
-%>
+<c:if test="${pc.registration == false}">
+<input type="submit" value="Зарегистрироваться" name="<c:out value="${pc.conference.code}"></c:out>">
+</c:if>
 </td>
 </tr>
-<%
-}%>
+</c:forEach>
 </table>
 </form>
-</h5>
+</div>
 <form action="jumptologinpageservlet" method="get">
-<input type="submit" value="Back">
+<input type="submit" value="Назад">
 </form>
 </body>
 </html>

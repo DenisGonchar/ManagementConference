@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import managment.conference.db.daoImpl.ConferenceDaoImpl;
-import managment.conference.db.daoImpl.SpeachDaoImpl;
+import managment.conference.db.daoImpl.SpeechDaoImpl;
 import managment.conference.db.daoImpl.UserConferenceDaoImpl;
 import managment.conference.db.daoImpl.UserDaoImpl;
 import manegment.conference.classes.Conference;
-import manegment.conference.classes.Speach;
+import manegment.conference.classes.Speech;
 import manegment.conference.classes.User;
 
 /**
@@ -42,16 +42,17 @@ public class DelEditConference extends HttpServlet {
 		ConferenceDaoImpl conferenceDaoImpl = new ConferenceDaoImpl();
 		UserDaoImpl userDaoImpl = new UserDaoImpl();
 		UserConferenceDaoImpl userConferenceDaoImpl = new UserConferenceDaoImpl();
-		SpeachDaoImpl speachDaoImpl = new SpeachDaoImpl();
+		SpeechDaoImpl speachDaoImpl = new SpeechDaoImpl();
 		String page = null;
 		HttpSession session = request.getSession();
 		try {
 			List<Conference> conferences = conferenceDaoImpl.getAllConferences();
 			List<User> users = userDaoImpl.getAllUsers();
 			List<User> speakers = userDaoImpl.getAllSpeakers();
-			List<Speach> speaches = speachDaoImpl.getAllSpeaches();
+			List<Speech> speaches = speachDaoImpl.getAllSpeaches();
 			for (int i = conferences.size()-1; i >= 0; i--) {
 				String code = conferences.get(i).getCode();
+				String codeSp = speaches.get(i).getCode();
 				if(request.getParameter("d" + code) != null) {
 					conferenceDaoImpl.removeConference(conferences.get(i));
 					conferences.remove(i);
@@ -74,6 +75,11 @@ public class DelEditConference extends HttpServlet {
 					page = "setSpeaches.jsp";
 					session.setAttribute("conference", conferences.get(i));
 					speaches = speachDaoImpl.getSpeachbyConference(conferences.get(i));
+					if (request.getParameter("ch" + codeSp) != null) {
+						page = "setAllParametersSpeakerSpeaches.jsp";
+						session.setAttribute("speach", speaches.get(i));
+						break;
+					}
 					break;
 				}
 			}

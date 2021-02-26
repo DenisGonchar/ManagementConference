@@ -120,6 +120,13 @@ public class DBProperties {
 		pstmt.setString(2, code);
 		
 	}
+	public void setUpdateAllParametersSpeech(String nameSpeach, String time, String interval, String login,
+			String code) throws SQLException {
+		pstmt.setString(1, nameSpeach);
+		pstmt.setString(2, time);
+		pstmt.setString(3, interval);
+		pstmt.setString(4, code);
+	}
 	
 	
 	

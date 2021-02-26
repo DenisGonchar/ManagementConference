@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import managment.conference.db.daoImpl.ConferenceDaoImpl;
-import managment.conference.db.daoImpl.SpeachDaoImpl;
+import managment.conference.db.daoImpl.SpeechDaoImpl;
 import managment.conference.db.daoImpl.UserDaoImpl;
 import manegment.conference.classes.Conference;
-import manegment.conference.classes.Speach;
+import manegment.conference.classes.Speech;
 import manegment.conference.classes.User;
 
 /**
@@ -39,7 +39,7 @@ public class RegistrationConfServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ConferenceDaoImpl conferenceDaoImpl = new ConferenceDaoImpl();
 		UserDaoImpl userDaoImpl = new UserDaoImpl();
-		SpeachDaoImpl speachDaoImpl = new SpeachDaoImpl();
+		SpeechDaoImpl speachDaoImpl = new SpeechDaoImpl();
 		String nameConf = request.getParameter("nameConf");
 		String place = request.getParameter("place");
 		String date = request.getParameter("date");
@@ -49,7 +49,7 @@ public class RegistrationConfServlet extends HttpServlet {
 			List<Conference> conferences = conferenceDaoImpl.getAllConferences();
 			List<User> users = userDaoImpl.getAllUsers();
 			List<User> speakers = userDaoImpl.getAllSpeakers();
-			List<Speach> speaches = speachDaoImpl.getAllSpeaches();
+			List<Speech> speaches = speachDaoImpl.getAllSpeaches();
 			Conference lastConference = conferences.get(conferences.size()-1);
 			conference.setCode("C" + (Integer.parseInt(lastConference.getCode().substring(1))+1));
 			RequestDispatcher rd = null;

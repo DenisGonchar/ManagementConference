@@ -46,7 +46,7 @@ This is list of Users. You can remove them from conferences.
 <input type="submit" value="delete" name="<c:out value="${u.login}"></c:out>">
 </td>
 <td>
-<input type="submit" value="Go to Speaker" name="<c:out value="${u.login}"></c:out>">
+<input type="submit" value="Make Him a Speaker" name="gts<c:out value="${u.login}"></c:out>">
 </td>
 </tr>
 </c:forEach>
@@ -68,8 +68,8 @@ This is list of Speakers. You can remove them from conferences.
 </td>
 <td>
 <input type="submit" value="delete" name="<c:out value="${s.login}"></c:out>">
-<input type="submit" value="Propose speach" name="<c:out value="${s.login}"></c:out>">
-<input type="submit" value="Go to User" name="gtu<c:out value="${s.login}"></c:out>">
+<input type="submit" value="Propose speach" name="<c:out value=""></c:out>">
+<input type="submit" value="Make Him a User" name="gtu<c:out value="${s.login}"></c:out>">
 </td>
 </tr>
 </c:forEach>

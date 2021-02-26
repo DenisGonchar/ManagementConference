@@ -14,12 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import managment.conference.db.daoImpl.ConferenceDaoImpl;
-import managment.conference.db.daoImpl.SpeachDaoImpl;
+import managment.conference.db.daoImpl.SpeechDaoImpl;
 import managment.conference.db.daoImpl.UserConferenceDaoImpl;
 import managment.conference.db.daoImpl.UserDaoImpl;
 import manegment.conference.classes.Conference;
 import manegment.conference.classes.PropConference;
-import manegment.conference.classes.Speach;
+import manegment.conference.classes.Speech;
 import manegment.conference.classes.User;
 
 /**
@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
 		UserDaoImpl speakerDaoImpl = new UserDaoImpl();
 		ConferenceDaoImpl conferenceDaoImpl = new ConferenceDaoImpl();
 		UserConferenceDaoImpl userConferenceDaoImpl = new UserConferenceDaoImpl();
-		SpeachDaoImpl speachDaoImpl = new SpeachDaoImpl();
+		SpeechDaoImpl speachDaoImpl = new SpeechDaoImpl();
 		List<PropConference> propConferences = new ArrayList<>();
 		String login = request.getParameter("login");
 		String password = request.getParameter("pass");
@@ -61,7 +61,7 @@ public class LoginServlet extends HttpServlet {
 					request.setAttribute("users", users);
 					List<User> speakers = speakerDaoImpl.getAllSpeakers();
 					request.setAttribute("speakers", speakers);
-					List<Speach> speaches = speachDaoImpl.getAllSpeaches();
+					List<Speech> speaches = speachDaoImpl.getAllSpeaches();
 					request.setAttribute("speaches", speaches);
 					List<Conference> conferences = conferenceDaoImpl.getAllConferences();
 					request.setAttribute("conferences", conferences);

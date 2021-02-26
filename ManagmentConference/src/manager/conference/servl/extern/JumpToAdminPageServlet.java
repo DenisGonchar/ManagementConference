@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import managment.conference.db.daoImpl.ConferenceDaoImpl;
-import managment.conference.db.daoImpl.SpeachDaoImpl;
+import managment.conference.db.daoImpl.SpeechDaoImpl;
 import managment.conference.db.daoImpl.UserDaoImpl;
 import manegment.conference.classes.Conference;
-import manegment.conference.classes.Speach;
+import manegment.conference.classes.Speech;
 import manegment.conference.classes.User;
 
 /**
@@ -40,7 +40,7 @@ public class JumpToAdminPageServlet extends HttpServlet {
 		UserDaoImpl userDaoImpl = new UserDaoImpl();
 		UserDaoImpl speakerDaoImpl = new UserDaoImpl();
 		ConferenceDaoImpl conferenceDaoImpl = new ConferenceDaoImpl();
-		SpeachDaoImpl speachDaoImpl = new SpeachDaoImpl();
+		SpeechDaoImpl speachDaoImpl = new SpeechDaoImpl();
 		RequestDispatcher rd = request.getRequestDispatcher("admin.jsp");
 		List<User> users;
 		try {
@@ -48,7 +48,7 @@ public class JumpToAdminPageServlet extends HttpServlet {
 			request.setAttribute("users", users);
 			List<User> speakers = speakerDaoImpl.getAllSpeakers();
 			request.setAttribute("speakers", speakers);
-			List<Speach> speaches = speachDaoImpl.getAllSpeaches();
+			List<Speech> speaches = speachDaoImpl.getAllSpeaches();
 			request.setAttribute("speaches", speaches);
 			List<Conference> conferences = conferenceDaoImpl.getAllConferences();
 			request.setAttribute("conferences", conferences);

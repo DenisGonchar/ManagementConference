@@ -13,22 +13,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import managment.conference.db.daoImpl.ConferenceDaoImpl;
-import managment.conference.db.daoImpl.SpeachDaoImpl;
+import managment.conference.db.daoImpl.SpeechDaoImpl;
 import manegment.conference.classes.Conference;
-import manegment.conference.classes.Speach;
+import manegment.conference.classes.Speech;
 import manegment.conference.classes.User;
-
 /**
- * Servlet implementation class ChangeTopikSpeach
+ * Servlet implementation class SpeachServlet
  */
-@WebServlet("/changetopikspeach")
-public class ChangeTopikSpeach extends HttpServlet {
+@WebServlet("/speachservlet")
+public class SpeechServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ChangeTopikSpeach() {
+    public SpeechServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,19 +35,31 @@ public class ChangeTopikSpeach extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		SpeachDaoImpl speachDaoImpl = new SpeachDaoImpl();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	SpeechDaoImpl speachDaoImpl = new SpeechDaoImpl();
 		ConferenceDaoImpl conferenceDaoImpl = new ConferenceDaoImpl();
-		String topic = request.getParameter("topic");
 		HttpSession session = request.getSession();
-		Speach speach = (Speach) session.getAttribute("speach");
 		User user = (User) session.getAttribute("user");
+		String page = null;
 		try {
+			List<Speech> speaches = speachDaoImpl.getSpeachesByLogSpkr(user.getLogin());
 			List<Conference> conferences = conferenceDaoImpl.getAllConferences();		
-			speachDaoImpl.changeTopic(topic, speach.getCode());
-			System.out.println(topic);
-			List<Speach> speaches = speachDaoImpl.getSpeachesByLogSpkr(user.getLogin());
-			RequestDispatcher rd = request.getRequestDispatcher("speaker.jsp");
+			RequestDispatcher rd = null;
+			for (int i = speaches.size()-1; i >= 0 ; i--) {
+				String code = speaches.get(i).getCode();
+				if(request.getParameter("d" + code) != null) {
+					page = "speaker.jsp";
+					speachDaoImpl.changeLogin("freeSpeaker", code);
+					speaches.remove(i);
+					break;
+				}
+				if (request.getParameter("e" + code) != null) {
+					page = "setSpeakerSpeaches.jsp";
+					session.setAttribute("speach", speaches.get(i));
+					break;
+				}
+			}
+			rd = request.getRequestDispatcher(page);
 			request.setAttribute("conferences", conferences);
 			request.setAttribute("speaches", speaches);
 			rd.forward(request, response);

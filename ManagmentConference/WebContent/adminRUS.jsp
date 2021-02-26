@@ -1,7 +1,6 @@
-<%@page import="manegment.conference.classes.Speach"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    <%@ page import="manegment.conference.classes.User, manegment.conference.classes.Speach, manegment.conference.classes.Conference, java.util.ArrayList"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,12 +14,7 @@
     color: white;
     padding: 2px;
    }
-   h4 {
-    background: #bdb4c2;
-    color: black;
-    padding: 2px;
-   }
-   h5 {
+   .tableForm {
     background: #bdb4c2;
     color: black;
     padding: 2px;
@@ -28,120 +22,100 @@
 </style>
 </head>
 <body>
-<%
-User user = (User)session.getAttribute("user");
-ArrayList<User> users = (ArrayList<User>)request.getAttribute("users");
-%>
 <h1>
-Привет <%=user.getLogin() %>, Вы, модератор.
+Привет, <c:out value="${user.login}"></c:out>, Вы, модератор.
 </h1>
+<form action="" method="get">
+<input type="submit" value="English/Russian">
+</form>
 <br>
 <br>
-<h4>
-This is list of Users. You can remove them from conferences.
+<div class="tableForm">
+Это список гостей. Вы можете удалить их из конференции.
 <form action="deluserservlet" method="get">
 <table>
-<%
-for(int i=0; i<users.size(); i++){
-%>
+<c:forEach items="${users}" var="u">
 <tr>
 <td>
-<%=users.get(i).getLogin() %>
+<c:out value="${u.login}"></c:out>
 </td>
 <td>
-<%=users.get(i).getEmail() %>
+<c:out value="${u.email}"></c:out>
 </td>
 <td>
-<input type="submit" value="delete" name="<%= users.get(i).getLogin() %>">
+<input type="submit" value="Удалить" name="<c:out value="${u.login}"></c:out>">
 </td>
 <td>
-<input type="submit" value="Go to Speaker" name="gts<%= users.get(i).getLogin() %>">
+<input type="submit" value="Сделать спикером" name="gts<c:out value="${u.login}"></c:out>">
 </td>
 </tr>
-<%
-}%>
+</c:forEach>
 </table>
 </form>
-</h4>
-
-<%
-User speaker = (User)session.getAttribute("speaker");
-ArrayList<User> speakers = (ArrayList<User>)request.getAttribute("speakers");
-%>
+</div>
 <br>
-<h4>
-This is list of Speakers. You can remove them from conferences.
+<div class="tableForm">
+Это список спикеров. Вы можете удалить их из конференции.
 <form action="deluserservlet" method="get">
 <table>
-<%
-for(int i=0; i<speakers.size(); i++){
-%>
+<c:forEach items="${speakers}" var="s">
 <tr>
 <td>
-<%=speakers.get(i).getLogin() %>
+<c:out value="${s.login}"></c:out>
 </td>
 <td>
-<%=speakers.get(i).getEmail() %>
+<c:out value="${s.email}"></c:out>
 </td>
 <td>
-<input type="submit" value="delete" name="<%= speakers.get(i).getLogin() %>">
-<input type="submit" value="Propose speach" name="<%= speakers.get(i).getLogin() %>">
-<input type="submit" value="Go to User" name="gtu<%= speakers.get(i).getLogin() %>">
+<input type="submit" value="Удалить" name="<c:out value="${s.login}"></c:out>">
+<input type="submit" value="Сделать гостем" name="gtu<c:out value="${s.login}"></c:out>">
 </td>
 </tr>
-<%
-}%>
+</c:forEach>
 </table>
 </form>
-</h4>
-<%
-Conference conference = (Conference)session.getAttribute("conference");
-ArrayList<Conference> conferences = (ArrayList<Conference>)request.getAttribute("conferences");
-%>
+</div>
 <br>
-<h5>
-This is list of conferences. You can remove and change it.
+<div class="tableForm">
+Это список мероприятий. Вы можете удалить или изменить их.
 <form action="deleditconference" method="get">
 <table>
-<%
-for(int i=0; i<conferences.size(); i++){
-%>
+<c:forEach items="${conferences}" var="c">
 <tr>
 <td>
-<%=conferences.get(i).getNameConf() %>
+<c:out value="${c.nameConf}"></c:out>
 </td>
 <td>
-<%=conferences.get(i).getPlace() %>
+<c:out value="${c.place}"></c:out>
 </td>
 <td>
-<%=conferences.get(i).getDate() %>
+<c:out value="${c.date}"></c:out>
 </td>
 <td>
-<%=conferences.get(i).getTime() %>
+<c:out value="${c.time}"></c:out>
 </td>
 <td>
-<input type="submit" value="Delete" name="d<%= conferences.get(i).getCode() %>">
+<input type="submit" value="Удалить" name="d<c:out value="${c.code}"></c:out>">
 </td>
 <td>
-<input type="submit" value="Edit" name="e<%= conferences.get(i).getCode() %>">
+<input type="submit" value="Изменить" name="e<c:out value="${c.code}"></c:out>">
 </td>
 <td>
-<input type="submit" value="Show Users" name="s<%= conferences.get(i).getCode() %>">
+<input type="submit" value="Показать участников" name="s<c:out value="${c.code}"></c:out>">
 </td>
 <td>
-<input type="submit" value="Settings speaches" name="set<%= conferences.get(i).getCode() %>">
+<input type="submit" value="Настройка докладов" name="set<c:out value="${c.code}"></c:out>">
 </td>
 </tr>
-<%
-}%>
+</c:forEach>
 </table>
 </form>
-</h5>
+</div>
 <form action="jumptoregconfservlet" method="get">
-<input type="submit" value="Add New Conference">
+<input type="submit" value="Добавить новую конференцию">
 </form>
 <form action="jumptologinpageservlet" method="get">
-<input type="submit" value="Back">
+<input type="submit" value="Назад">
 </form>
 </body>
 </html>
