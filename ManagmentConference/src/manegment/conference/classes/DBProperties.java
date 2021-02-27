@@ -44,11 +44,12 @@ public class DBProperties {
 	public void setDelParameters(String login) throws SQLException{
 		pstmt.setString(1, login);
 	}
-	public void setAddParametersToSpeach(String nameSpeach, String time, String interval, String login) throws SQLException {
+	public void setAddParametersToSpeach(String nameSpeach, String time, String interval, String login, String code) throws SQLException {
 		pstmt.setString(1, nameSpeach);
 		pstmt.setString(2, time);
 		pstmt.setString(3, interval);
 		pstmt.setString(4, login);
+		pstmt.setString(5, code);
 	}
 	
 	public void setAddParametersToConference(String nameConf, String place, String date, String time, String code) throws SQLException {
@@ -112,6 +113,29 @@ public class DBProperties {
 	public void setAddSpeachConfParameters(String codeConf, String codeSpeach) throws SQLException {
 		pstmt.setString(1, codeSpeach);
 		pstmt.setString(2, codeConf);
+		
+	}
+	public void setUpdateParametersChangeLogin(String oldlogin, String newlogin, String code) throws SQLException {
+		pstmt.setString(1, oldlogin);
+		pstmt.setString(2, newlogin);
+		pstmt.setString(3, code);
+		
+	}
+	public void setUpdateParametersChangeTopic(String oldlogin, String newlogin) throws SQLException {
+		pstmt.setString(1, oldlogin);
+		pstmt.setString(2, newlogin);
+		
+	}
+	public void setUpdateAllParametersSpeech(String nameSpeach, String time, String interval, String login,
+			String code) throws SQLException {
+		pstmt.setString(1, nameSpeach);
+		pstmt.setString(2, time);
+		pstmt.setString(3, interval);
+		pstmt.setString(4, login);
+		pstmt.setString(5, code);
+	}
+	public void setParametersDelSpeech(String code) throws SQLException {
+		pstmt.setString(1, code);
 		
 	}
 	

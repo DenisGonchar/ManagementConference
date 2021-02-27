@@ -13,24 +13,24 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import managment.conference.db.daoImpl.ConferenceDaoImpl;
-import managment.conference.db.daoImpl.SpeachDaoImpl;
+import managment.conference.db.daoImpl.SpeechDaoImpl;
 import managment.conference.db.daoImpl.UserConferenceDaoImpl;
 import managment.conference.db.daoImpl.UserDaoImpl;
 import manegment.conference.classes.Conference;
-import manegment.conference.classes.Speach;
+import manegment.conference.classes.Speech;
 import manegment.conference.classes.User;
 
 /**
  * Servlet implementation class DelEditConference
  */
 @WebServlet("/deleditconference")
-public class DelEditConference extends HttpServlet {
+public class DelEditConferenceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DelEditConference() {
+    public DelEditConferenceServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,35 +42,37 @@ public class DelEditConference extends HttpServlet {
 		ConferenceDaoImpl conferenceDaoImpl = new ConferenceDaoImpl();
 		UserDaoImpl userDaoImpl = new UserDaoImpl();
 		UserConferenceDaoImpl userConferenceDaoImpl = new UserConferenceDaoImpl();
-		SpeachDaoImpl speachDaoImpl = new SpeachDaoImpl();
+		SpeechDaoImpl speachDaoImpl = new SpeechDaoImpl();
 		String page = null;
 		HttpSession session = request.getSession();
+		String language = (String) session.getAttribute("language");
 		try {
 			List<Conference> conferences = conferenceDaoImpl.getAllConferences();
 			List<User> users = userDaoImpl.getAllUsers();
 			List<User> speakers = userDaoImpl.getAllSpeakers();
-			List<Speach> speaches = speachDaoImpl.getAllSpeaches();
+			List<Speech> speaches = speachDaoImpl.getAllSpeaches();
 			for (int i = conferences.size()-1; i >= 0; i--) {
 				String code = conferences.get(i).getCode();
 				if(request.getParameter("d" + code) != null) {
 					conferenceDaoImpl.removeConference(conferences.get(i));
 					conferences.remove(i);
-					page = "admin.jsp";
+					page = language.equals("en")?"admin.jsp":"adminRUS.jsp";
 					break;
 				}
 				if (request.getParameter("e" + code) != null) {
-					page = "regConferences.jsp";
+					page = language.equals("en")?"regConferences.jsp":"regConferencesRUS.jsp";
 					session.setAttribute("conference", conferences.get(i));
 					break;
 				}
 				if (request.getParameter("s" + code) != null) {
-					page = "showUser.jsp";
+					page = language.equals("en")?"showUser.jsp":"showUserRUS.jsp";
+					session.setAttribute("conference", conferences.get(i));
 					users.clear();
 					users = userConferenceDaoImpl.getUsersByCode(conferences.get(i).getCode());
 					break;
 				}	
 				if (request.getParameter("set" + code) != null) {
-					page = "setSpeaches.jsp";
+					page = language.equals("en")?"setSpeaches.jsp":"setSpeachesRUS.jsp";
 					session.setAttribute("conference", conferences.get(i));
 					speaches = speachDaoImpl.getSpeachbyConference(conferences.get(i));
 					break;

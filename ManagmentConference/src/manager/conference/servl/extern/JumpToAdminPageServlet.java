@@ -10,12 +10,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import managment.conference.db.daoImpl.ConferenceDaoImpl;
-import managment.conference.db.daoImpl.SpeachDaoImpl;
+import managment.conference.db.daoImpl.SpeechDaoImpl;
 import managment.conference.db.daoImpl.UserDaoImpl;
 import manegment.conference.classes.Conference;
-import manegment.conference.classes.Speach;
+import manegment.conference.classes.Speech;
 import manegment.conference.classes.User;
 
 /**
@@ -40,15 +41,17 @@ public class JumpToAdminPageServlet extends HttpServlet {
 		UserDaoImpl userDaoImpl = new UserDaoImpl();
 		UserDaoImpl speakerDaoImpl = new UserDaoImpl();
 		ConferenceDaoImpl conferenceDaoImpl = new ConferenceDaoImpl();
-		SpeachDaoImpl speachDaoImpl = new SpeachDaoImpl();
-		RequestDispatcher rd = request.getRequestDispatcher("admin.jsp");
+		SpeechDaoImpl speachDaoImpl = new SpeechDaoImpl();
+		HttpSession session = request.getSession();
+		String language = (String) session.getAttribute("language");
+		RequestDispatcher rd = request.getRequestDispatcher(language.equals("en")?"admin.jsp":"adminRUS.jsp");
 		List<User> users;
 		try {
 			users = userDaoImpl.getAllUsers();
 			request.setAttribute("users", users);
 			List<User> speakers = speakerDaoImpl.getAllSpeakers();
 			request.setAttribute("speakers", speakers);
-			List<Speach> speaches = speachDaoImpl.getAllSpeaches();
+			List<Speech> speaches = speachDaoImpl.getAllSpeaches();
 			request.setAttribute("speaches", speaches);
 			List<Conference> conferences = conferenceDaoImpl.getAllConferences();
 			request.setAttribute("conferences", conferences);

@@ -14,22 +14,24 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import managment.conference.db.daoImpl.ConferenceDaoImpl;
-import managment.conference.db.daoImpl.SpeachDaoImpl;
+import managment.conference.db.daoImpl.SpeechDaoImpl;
 import managment.conference.db.daoImpl.UserConferenceDaoImpl;
 import manegment.conference.classes.Conference;
+import manegment.conference.classes.PropConference;
+import manegment.conference.classes.Speech;
 import manegment.conference.classes.User;
 
 /**
- * Servlet implementation class RegUserByConference
+ * Servlet implementation class RegSpeakerByConference
  */
-@WebServlet("/reguserbyconference")
-public class RegUserByConference extends HttpServlet {
+@WebServlet("/regspeakerbyconference")
+public class RegSpeakerByConferenceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegUserByConference() {
+    public RegSpeakerByConferenceServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,30 +39,35 @@ public class RegUserByConference extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession httpSession = request.getSession();
-		User user = (User) httpSession.getAttribute("user");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
 		ConferenceDaoImpl conferenceDaoImpl = new ConferenceDaoImpl();
 		UserConferenceDaoImpl userConferenceDaoImpl = new UserConferenceDaoImpl();
-		List<Boolean> regconf = new ArrayList<Boolean>();
+		SpeechDaoImpl speachDaoImpl = new SpeechDaoImpl();
+		List<PropConference> propConferences = new ArrayList<>();
+		String language = (String) session.getAttribute("language");
 		try {
+			List<Speech> speaches = speachDaoImpl.getSpeachesByLogSpkr(user.getLogin());
 			List<Conference> conferences = conferenceDaoImpl.getAllConferences();
 			RequestDispatcher rd = null;
 			for (int i = 0; i < conferences.size(); i++) {
-				if(request.getParameter(conferences.get(i).getCode()) != null) {
-					if(!userConferenceDaoImpl.checkUser(user, conferences.get(i).getCode())) {
-						userConferenceDaoImpl.regUser(user, conferences.get(i).getCode());
-					}
+				if(request.getParameter("r" + conferences.get(i).getCode()) != null) {
+						userConferenceDaoImpl.regUser(user, conferences.get(i).getCode());	
+				}
+				if(request.getParameter("u" + conferences.get(i).getCode()) != null) {
+					userConferenceDaoImpl.unRegUser(user, conferences.get(i).getCode());
 				}
 				if(userConferenceDaoImpl.checkUser(user, conferences.get(i).getCode())) {
-					regconf.add(true);
+					propConferences.add(new PropConference(conferences.get(i), true));
 				} else {
-					regconf.add(false);
+					propConferences.add(new PropConference(conferences.get(i), false));
 				}
 			}
-			request.setAttribute("regconf", regconf);
+			request.setAttribute("speaches", speaches);
+			request.setAttribute("propConferences", propConferences);
 			request.setAttribute("conferences", conferences);
-			rd = request.getRequestDispatcher("user.jsp");
+			rd = request.getRequestDispatcher(language.equals("en")?"speaker.jsp":"speakerRUS.jsp");
 			rd.forward(request, response);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

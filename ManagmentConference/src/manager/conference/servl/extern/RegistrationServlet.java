@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import managment.conference.db.daoImpl.UserDaoImpl;
 import manegment.conference.classes.User;
@@ -36,14 +37,16 @@ public class RegistrationServlet extends HttpServlet {
 		String login = request.getParameter("login");
 		String password = request.getParameter("pass");
 		String email = request.getParameter("email");
+		HttpSession session = request.getSession();
+		String language = (String) session.getAttribute("language");
 		try {
 			RequestDispatcher rd = null;
 			if(userDaoImpl.checkLoginEmail(login, email)){
-				rd = request.getRequestDispatcher("registry.jsp");
+				rd = request.getRequestDispatcher(language.equals("en")?"registry.jsp":"registryRUS.jsp");
 				request.setAttribute("Error", "Such login or email is already exist");
 			}else {
 				userDaoImpl.addUser(new User(login, password, email, "user"));
-				rd = request.getRequestDispatcher("login.jsp");
+				rd = request.getRequestDispatcher(language.equals("en")?"login.jsp":"loginRUS.jsp");
 			}
 			rd.forward(request, response);
 		} catch (ClassNotFoundException e) {

@@ -1,5 +1,4 @@
-<%@page import="manegment.conference.classes.Conference"%>
-<%@page import="java.util.List"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
@@ -22,20 +21,17 @@
 <h1>
 Here you can change parameters of conferences.
 </h1>
-<%
-Conference conference = (Conference)session.getAttribute("conference");
-%>
 <form action="jumptoadminpageservlet" method="get">
 <input type="submit" value="Back">
 </form>
 <form action="saveconferenceservlet" method="get">
-<input type="text" name="nameConf" value=<%= conference.getNameConf() %>>
+<input type="text" name="nameConf" value="<c:out value="${conference.nameConf}"></c:out>">
 <br>
-<input type="text" name="place" value="<%= conference.getPlace() %>">
+<input type="text" name="place" value="<c:out value="${conference.place}"></c:out>">
 <br>
-<input type="text" name="date" value="<%= conference.getDate() %>">
+<input type="text" name="date" value="<c:out value="${conference.date}"></c:out>">
 <br>
-<input type="text" name="time" value="<%= conference.getTime() %>">
+<input type="text" name="time" value="<c:out value="${conference.time}"></c:out>">
 <br>
 <input type="submit" value="Save">
 </form>

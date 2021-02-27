@@ -1,7 +1,5 @@
-<%@page import="manegment.conference.classes.Conference"%>
-<%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html>
@@ -15,10 +13,10 @@
 </head>
 <body>
 <form action="jumptoadminpageservlet" method="get">
-<input type="submit" value="Back">
+<input type="submit" value="Назад">
 </form>
 <form action="registrationconfservlet" method="get">
-<input type="text" name="nameConf" placeholder="Имя Конференции" value="">
+<input type="text" name="nameConf" placeholder="Название конференции" value="">
 <br>
 <input type="text" name="place" placeholder="Место"  value="">
 <br>

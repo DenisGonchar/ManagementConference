@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,12 +35,12 @@
 </head>
 <body>
 <h1>
-Welcome to our conference!
+Добро пожаловать на нашу конференцию!
 <br>
-Press here for enter.
+Нажмите здесь для начала.
 </h1>
 <form action="jumptologin" method="get"> 
-<input type="submit" class="gradient-button" value="Start Conference!"/>
+<input type="submit" class="gradient-button" value="Старт!"/>
 </form>
 </body>
 </html>

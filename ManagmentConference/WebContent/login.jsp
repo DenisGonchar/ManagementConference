@@ -32,9 +32,6 @@
 .gradient-button:hover {
   background-position: right center;
 }
-form {
-  text-align: center;
-}
 #mainForm{
 	position: absolute;
 	top: 150px;

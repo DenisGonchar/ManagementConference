@@ -1,8 +1,6 @@
-<%@page import="manegment.conference.classes.Speach"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@ page import="manegment.conference.classes.User, manegment.conference.classes.Speach, manegment.conference.classes.Conference, java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,9 +25,6 @@
 <h1>
 Hello <c:out value="${user.login}"></c:out>, you are moderator.
 </h1>
-<form action="" method="get">
-<input type="submit" value="English/Russian">
-</form>
 <br>
 <br>
 <div class="tableForm">
@@ -48,7 +43,7 @@ This is list of Users. You can remove them from conferences.
 <input type="submit" value="delete" name="<c:out value="${u.login}"></c:out>">
 </td>
 <td>
-<input type="submit" value="Go to Speaker" name="<c:out value="${u.login}"></c:out>">
+<input type="submit" value="Make Him a Speaker" name="gts<c:out value="${u.login}"></c:out>">
 </td>
 </tr>
 </c:forEach>
@@ -70,8 +65,8 @@ This is list of Speakers. You can remove them from conferences.
 </td>
 <td>
 <input type="submit" value="delete" name="<c:out value="${s.login}"></c:out>">
-<input type="submit" value="Propose speach" name="<c:out value="${s.login}"></c:out>">
-<input type="submit" value="Go to User" name="gtu<c:out value="${s.login}"></c:out>">
+<input type="submit" value="Propose speach" name="<c:out value=""></c:out>">
+<input type="submit" value="Make Him a User" name="gtu<c:out value="${s.login}"></c:out>">
 </td>
 </tr>
 </c:forEach>

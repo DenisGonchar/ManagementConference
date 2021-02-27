@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class JumpToRegConfServlet
@@ -28,7 +29,9 @@ public class JumpToRegConfServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("addNewConf.jsp");
+		HttpSession session = request.getSession();
+		String language = (String) session.getAttribute("language");
+		RequestDispatcher rd = request.getRequestDispatcher(language.equals("en")?"addNewConf.jsp":"addNewConfRUS.jsp");
 		rd.forward(request, response);
 	}
 

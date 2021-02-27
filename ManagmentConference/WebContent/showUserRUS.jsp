@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    <%@ page import="manegment.conference.classes.User, manegment.conference.classes.Conference, java.util.ArrayList"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +14,7 @@
     color: white;
     padding: 1px;
    }
-    h5 {
+    .tableForm {
     background: #bdb4c2;
     color: black;
     padding: 1px;
@@ -22,37 +22,30 @@
 </style>
 </head>
 <body>
-<%
-User user = (User)session.getAttribute("user");
-ArrayList<User> users = (ArrayList<User>)request.getAttribute("users");
-%>
 <h1>
-This is a list of users who signed up for this conference.
+Это список участников конференции - <c:out value="${conference.nameConf}"></c:out>.
 </h1>
-<h5>
+<div class="tableForm">
 <form action="deleditconference" method="get">
 <table>
-<%
-for(int i=0; i<users.size(); i++){
-%>
+<c:forEach items="${users}" var="u">
 <tr>
 <td>
-<%=users.get(i).getLogin() %>
+<c:out value="${u.login}"></c:out>
 </td>
 <td>
-<%=users.get(i).getEmail() %>
+<c:out value="${u.email}"></c:out>
 </td>
 <td>
-|<%=users.get(i).getRolle()%>|
+|<c:out value="${u.rolle}"></c:out>|
 </td>
 </tr>
-<%
-}%>
-</h5>
+</c:forEach>
 </table>
 </form>
+</div>
 <form action="jumptoadminpageservlet" method="get">
-<input type="submit" value="Back">
+<input type="submit" value="Назад">
 </form>
 </body>
 </html>

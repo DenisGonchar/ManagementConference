@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.management.Query;
 
 import manegment.conference.classes.DBProperties;
 import manegment.conference.classes.User;
@@ -32,7 +31,7 @@ public class UserDaoImpl implements UserDao {
 	}
 	@Override
 	public List<User> getAllSpeakers() throws ClassNotFoundException, SQLException {
-		quary = "SELECT * FROM user WHERE rolle = 'speaker'";
+		quary = "SELECT * FROM user WHERE rolle = 'speaker' AND login <> 'freeSpeaker'";
 		dbproperties.openDB();
 		dbproperties.createPreparedStatement(quary);
 		ResultSet rs = dbproperties.createResult();

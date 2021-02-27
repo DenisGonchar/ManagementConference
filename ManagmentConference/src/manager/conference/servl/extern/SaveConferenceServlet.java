@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import managment.conference.db.daoImpl.ConferenceDaoImpl;
-import managment.conference.db.daoImpl.SpeachDaoImpl;
+import managment.conference.db.daoImpl.SpeechDaoImpl;
 import managment.conference.db.daoImpl.UserDaoImpl;
 import manegment.conference.classes.Conference;
-import manegment.conference.classes.Speach;
+import manegment.conference.classes.Speech;
 import manegment.conference.classes.User;
 
 /**
@@ -39,7 +39,7 @@ public class SaveConferenceServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ConferenceDaoImpl conferenceDaoImpl = new ConferenceDaoImpl();
-		SpeachDaoImpl speachDaoImpl = new SpeachDaoImpl();
+		SpeechDaoImpl speachDaoImpl = new SpeechDaoImpl();
 		UserDaoImpl userDaoImpl = new UserDaoImpl();
 		HttpSession session = request.getSession();
 		Conference conference = (Conference) session.getAttribute("conference");
@@ -47,13 +47,14 @@ public class SaveConferenceServlet extends HttpServlet {
 		conference.setPlace(request.getParameter("place"));
 		conference.setDate(request.getParameter("date"));
 		conference.setTime(request.getParameter("time"));
+		String language = (String) session.getAttribute("language");
 		try {
 			conferenceDaoImpl.updateConference(conference);
-			RequestDispatcher rd = request.getRequestDispatcher("admin.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher(language.equals("en")?"admin.jsp":"adminRUS.jsp");
 			List<User> users = userDaoImpl.getAllUsers();
 			List<User> speakers = userDaoImpl.getAllSpeakers();
 			List<Conference> conferences = conferenceDaoImpl.getAllConferences();
-			List<Speach> speaches = speachDaoImpl.getAllSpeaches();
+			List<Speech> speaches = speachDaoImpl.getAllSpeaches();
 			request.setAttribute("conferences", conferences);
 			request.setAttribute("users", users);
 			request.setAttribute("speakers", speakers);

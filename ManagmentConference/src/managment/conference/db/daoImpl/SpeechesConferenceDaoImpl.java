@@ -3,9 +3,9 @@ package managment.conference.db.daoImpl;
 import java.sql.SQLException;
 
 import manegment.conference.classes.DBProperties;
-import menegment.conference.db.dao.SpeachesConferenceDao;
+import menegment.conference.db.dao.SpeechesConferenceDao;
 
-public class SpeachesConferenceDaoImpl implements SpeachesConferenceDao{
+public class SpeechesConferenceDaoImpl implements SpeechesConferenceDao{
 	private DBProperties dbproperties = new DBProperties();
 	private String quary;
 

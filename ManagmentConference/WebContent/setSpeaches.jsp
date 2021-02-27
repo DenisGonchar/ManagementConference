@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@ page import="manegment.conference.classes.User, manegment.conference.classes.Speach, java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +14,7 @@
     color: white;
     padding: 1px;
    }
-    h5 {
+    .tableForm{
     background: #bdb4c2;
     color: black;
     padding: 1px;
@@ -23,41 +22,37 @@
 </style>
 </head>
 <body>
-<%
-ArrayList<Speach> speaches = (ArrayList<Speach>)request.getAttribute("speaches");
-%>
 <h1>
-This is list of speaches from confernce: <c:out value="${conference}"></c:out>. You can remove and change name of it.
+This is list of speaches from confernce: <c:out value="${conference.nameConf}"></c:out>. You can remove and change name of it.
 </h1>
-<h5>
-<form action="deleditconference" method="get">
+<div class="tableForm">
+<form action="deleditspeechservlet" method="get">
 <table>
-
-<%
-for(int i=0; i<speaches.size(); i++){
-%>
+<c:forEach items="${speaches}" var="s">
 <tr>
 <td>
-"<%=speaches.get(i).getNameSpeach() %>"
+"<c:out value="${s.nameSpeach}"></c:out>"
 </td>
 <td>
-Begin: <%=speaches.get(i).getTime() %>
+Begin: <c:out value="${s.time}"></c:out>
 </td>
 <td>
-Interval: <%=speaches.get(i).getInterval() %> min.
+Interval: <c:out value="${s.interval}"></c:out> min.
 </td>
 <td>
-<%=speaches.get(i).getLogin() %>
+|login: <c:out value="${s.login}"></c:out>|
 </td>
 <td>
-<input type="submit" value="Change name of this speach" name="<%= speaches.get(i).getNameSpeach() %>">
+<input type="submit" value="Change parameters of this speach" name="ch<c:out value="${s.code}"></c:out>">
+</td>
+<td>
+<input type="submit" value="delete" name="d<c:out value="${s.code}"></c:out>">
 </td>
 </tr>
-<%
-}%>
+</c:forEach>
 </table>
 </form>
-</h5>
+</div>
 <form action="jumptoaddspeach" method="get">
 <input type="submit" value="Add new speach">
 </form>
