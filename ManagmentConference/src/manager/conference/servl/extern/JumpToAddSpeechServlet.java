@@ -29,9 +29,8 @@ public class JumpToAddSpeechServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String language = request.getParameter("language");
 		HttpSession session = request.getSession();
-		session.setAttribute("language", language);
+		String language = (String) session.getAttribute("language");
 		RequestDispatcher rd = request.getRequestDispatcher(language.equals("en")?"addNewSpeach.jsp":"addNewSpeachRUS.jsp");
 		rd.forward(request, response);
 	}

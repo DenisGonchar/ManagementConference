@@ -54,6 +54,16 @@ public class UserConferenceDaoImpl implements UserConferenceDao{
 		
 	}
 	@Override
+	public void unRegUser(User user, String code) throws SQLException, ClassNotFoundException {
+		quary = "DELETE FROM userConference WHERE login =? AND code =?";
+		dbproperties.openDB();
+		dbproperties.createPreparedStatement(quary);
+		dbproperties.setAddParametersToRegUserConference(user.getLogin(), code);
+		dbproperties.updateResult();
+		dbproperties.closeDB();
+		
+	}
+	@Override
 	public void delUser(User user) throws ClassNotFoundException, SQLException {
 		quary = "DELETE FROM userconference WHERE login =?";
 		dbproperties.openDB();

@@ -6,6 +6,10 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<style type="text/css">
+  body { background: url(img/speaker.png);
+  }
+  </style>
 </head>
 <body>
 <form action="changeparametersspeechservlet" method="get">

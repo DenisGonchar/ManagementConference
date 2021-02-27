@@ -31,7 +31,7 @@ public class UserDaoImpl implements UserDao {
 	}
 	@Override
 	public List<User> getAllSpeakers() throws ClassNotFoundException, SQLException {
-		quary = "SELECT * FROM user WHERE rolle = 'speaker'";
+		quary = "SELECT * FROM user WHERE rolle = 'speaker' AND login <> 'freeSpeaker'";
 		dbproperties.openDB();
 		dbproperties.createPreparedStatement(quary);
 		ResultSet rs = dbproperties.createResult();

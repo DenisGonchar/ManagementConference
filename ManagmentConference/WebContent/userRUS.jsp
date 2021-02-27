@@ -47,7 +47,10 @@
 </td>
 <td>
 <c:if test="${pc.registration == false}">
-<input type="submit" value="Зарегистрироваться" name="<c:out value="${pc.conference.code}"></c:out>">
+<input type="submit" value="Зарегистрироваться" name="r<c:out value="${pc.conference.code}"></c:out>">
+</c:if>
+<c:if test="${pc.registration == true}">
+<input type="submit" value="Выйти" name="u<c:out value="${pc.conference.code}"></c:out>">
 </c:if>
 </td>
 </tr>

@@ -31,21 +31,6 @@ public class SpeechDaoImpl implements SpeechDao{
 	}
 
 	@Override
-	public Speech checkSpeach(Speech speach) throws SQLException, ClassNotFoundException {
-		query = "SELECT * FROM speach WHERE nameSpeach=? AND time=?";
-		dbproperties.openDB();
-		dbproperties.createPreparedStatement(query);
-		ResultSet rs = dbproperties.createResult();
-		Speech u = null;
-		if(rs.next()) {
-			u = new Speech(rs.getString("nameSpeach"), rs.getString("time"), rs.getString("intervals"), 
-					rs.getString("login"), rs.getString("code"));
-		}
-		dbproperties.closeDB();
-		return u;
-	}
-
-	@Override
 	public void addSpeach(Speech speach) throws ClassNotFoundException, SQLException {
 		query = "INSERT INTO speach (nameSpeach, time, intervals, login, code) VALUES (?, ?, ?, ?, ?)";
 		dbproperties.openDB();
@@ -54,22 +39,6 @@ public class SpeechDaoImpl implements SpeechDao{
 		dbproperties.updateResult();
 		dbproperties.closeDB();
 		
-	}
-
-	@Override
-	public void updateSpeach(Speech speach) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean checkSpeachNameTime(String nameSpeach, String time, String interval, String login) throws SQLException, ClassNotFoundException {
-		query = "SELECT * FROM conference WHERE nameSpeach=? OR time=?";
-		dbproperties.openDB();
-		dbproperties.createPreparedStatement(query);
-		dbproperties.setCheckParametersForSpeach(nameSpeach, time);
-		ResultSet rs = dbproperties.createResult();
-		return rs.next()?true:false;
 	}
 
 	@Override

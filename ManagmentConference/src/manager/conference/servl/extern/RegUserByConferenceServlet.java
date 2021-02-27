@@ -48,10 +48,13 @@ public class RegUserByConferenceServlet extends HttpServlet {
 			List<Conference> conferences = conferenceDaoImpl.getAllConferences();
 			RequestDispatcher rd = null;
 			for (int i = 0; i < conferences.size(); i++) {
-				if(request.getParameter(conferences.get(i).getCode()) != null) {
+				if(request.getParameter("r" + conferences.get(i).getCode()) != null) {
 					if(!userConferenceDaoImpl.checkUser(user, conferences.get(i).getCode())) {
 						userConferenceDaoImpl.regUser(user, conferences.get(i).getCode());
 					}
+				}
+				if(request.getParameter("u" + conferences.get(i).getCode()) != null) {
+						userConferenceDaoImpl.unRegUser(user, conferences.get(i).getCode());
 				}
 				if(userConferenceDaoImpl.checkUser(user, conferences.get(i).getCode())) {
 					propConferences.add(new PropConference(conferences.get(i), true));

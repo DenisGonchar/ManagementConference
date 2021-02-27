@@ -43,7 +43,7 @@ public class DelEditSpeechServlet extends HttpServlet {
 		String language = (String) session.getAttribute("language");
 		String page = null;
 		try {
-			List<Speech> speaches = speachDaoImpl.getSpeachbyConference(conference);	
+			List<Speech> speaches = speachDaoImpl.getSpeachbyConference(conference);
 			RequestDispatcher rd = null;
 			for (int i = speaches.size()-1; i >= 0 ; i--) {
 				String code = speaches.get(i).getCode();

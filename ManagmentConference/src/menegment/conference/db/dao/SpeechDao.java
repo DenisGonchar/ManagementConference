@@ -8,10 +8,7 @@ import manegment.conference.classes.Speech;
 
 public interface SpeechDao {
 	public List<Speech> getAllSpeaches() throws ClassNotFoundException, SQLException;
-	public Speech checkSpeach(Speech speach) throws SQLException, ClassNotFoundException;
 	public void addSpeach(Speech speach) throws ClassNotFoundException, SQLException;
-	public void updateSpeach(Speech speach);
-	public boolean checkSpeachNameTime(String nameSpeach, String time, String interval, String login) throws SQLException, ClassNotFoundException;
 	public List<Speech> getSpeachbyConference(Conference conference) throws ClassNotFoundException, SQLException;
 	public Speech getSpeachByCode(String code) throws ClassNotFoundException, SQLException;
 	public List<Speech> getSpeachesByLogSpkr(String login) throws SQLException, ClassNotFoundException;

@@ -11,4 +11,5 @@ public interface UserConferenceDao {
 	void regUser(User user, String code) throws SQLException, ClassNotFoundException;
 	List<User> getUsersByCode(String code) throws ClassNotFoundException, SQLException;
 	void delUser(User user) throws ClassNotFoundException, SQLException;
+	void unRegUser(User user, String code) throws SQLException, ClassNotFoundException;
 }

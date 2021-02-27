@@ -43,7 +43,7 @@ Interval: <c:out value="${s.interval}"></c:out> min.
 |login: <c:out value="${s.login}"></c:out>|
 </td>
 <td>
-<input type="submit" value="Изменить название доклада" name="e<c:out value="${s.code}"></c:out>">
+<input type="submit" value="Изменить параметры доклада" name="ch<c:out value="${s.code}"></c:out>">
 </td>
 <td>
 <input type="submit" value="Удалить" name="d<c:out value="${s.code}"></c:out>">

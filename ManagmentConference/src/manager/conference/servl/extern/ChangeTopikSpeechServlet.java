@@ -2,6 +2,7 @@ package manager.conference.servl.extern;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -14,7 +15,9 @@ import javax.servlet.http.HttpSession;
 
 import managment.conference.db.daoImpl.ConferenceDaoImpl;
 import managment.conference.db.daoImpl.SpeechDaoImpl;
+import managment.conference.db.daoImpl.UserConferenceDaoImpl;
 import manegment.conference.classes.Conference;
+import manegment.conference.classes.PropConference;
 import manegment.conference.classes.Speech;
 import manegment.conference.classes.User;
 
@@ -39,17 +42,26 @@ public class ChangeTopikSpeechServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SpeechDaoImpl speachDaoImpl = new SpeechDaoImpl();
 		ConferenceDaoImpl conferenceDaoImpl = new ConferenceDaoImpl();
+		UserConferenceDaoImpl userConferenceDaoImpl = new UserConferenceDaoImpl();
 		String topic = request.getParameter("topic");
 		HttpSession session = request.getSession();
 		Speech speach = (Speech) session.getAttribute("speach");
 		User user = (User) session.getAttribute("user");
 		String language = (String) session.getAttribute("language");
 		try {
-			List<Conference> conferences = conferenceDaoImpl.getAllConferences();		
+			List<Conference> conferences = conferenceDaoImpl.getAllConferences();
+			List<PropConference> propConferences = new ArrayList<>();
 			speachDaoImpl.changeTopic(topic, speach.getCode());
 			List<Speech> speaches = speachDaoImpl.getSpeachesByLogSpkr(user.getLogin());
 			RequestDispatcher rd = request.getRequestDispatcher(language.equals("en")?"speaker.jsp":"speakerRUS.jsp");
-			request.setAttribute("conferences", conferences);
+			for (int i = 0; i < conferences.size(); i++) {
+				if (userConferenceDaoImpl.checkUser(user, conferences.get(i).getCode())) {
+					propConferences.add(new PropConference(conferences.get(i), true));
+				} else {
+					propConferences.add(new PropConference(conferences.get(i), false));
+				}
+			}
+			request.setAttribute("propConferences", propConferences);
 			request.setAttribute("speaches", speaches);
 			rd.forward(request, response);
 		} catch (ClassNotFoundException e) {

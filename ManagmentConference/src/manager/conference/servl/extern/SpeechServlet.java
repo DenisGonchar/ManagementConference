@@ -73,7 +73,7 @@ public class SpeechServlet extends HttpServlet {
 				}
 			}
 			rd = request.getRequestDispatcher(page);
-			System.out.println(conferences.size());
+			System.out.println(propConferences.size());
 			request.setAttribute("propConferences", propConferences);
 			request.setAttribute("speaches", speaches);
 			rd.forward(request, response);

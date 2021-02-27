@@ -42,9 +42,8 @@ public class JumpToAdminPageServlet extends HttpServlet {
 		UserDaoImpl speakerDaoImpl = new UserDaoImpl();
 		ConferenceDaoImpl conferenceDaoImpl = new ConferenceDaoImpl();
 		SpeechDaoImpl speachDaoImpl = new SpeechDaoImpl();
-		String language = request.getParameter("language");
 		HttpSession session = request.getSession();
-		session.setAttribute("language", language);
+		String language = (String) session.getAttribute("language");
 		RequestDispatcher rd = request.getRequestDispatcher(language.equals("en")?"admin.jsp":"adminRUS.jsp");
 		List<User> users;
 		try {

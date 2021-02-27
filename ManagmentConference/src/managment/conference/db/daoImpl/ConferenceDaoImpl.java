@@ -29,21 +29,6 @@ public class ConferenceDaoImpl implements ConferenceDao {
 		return conferences;
 	}
 
-	@Override
-	public Conference checkConference(Conference conference) throws SQLException, ClassNotFoundException {
-		quary = "SELECT * FROM conference WHERE nameConf=? AND time=?";
-		dbproperties.openDB();
-		dbproperties.createPreparedStatement(quary);
-		dbproperties.setCheckParametersForConference(conference.getNameConf(), conference.getTime());
-		ResultSet rs = dbproperties.createResult();
-		Conference u = null;
-		if(rs.next()) {
-			u = new Conference(rs.getString("nameConf"), rs.getString("place"), rs.getString("date"), 
-					rs.getString("time"), rs.getString("code"));
-		}
-		dbproperties.closeDB();
-		return u;
-	}
 
 	@Override
 	public void addConference(Conference conference) throws ClassNotFoundException, SQLException {
@@ -53,16 +38,6 @@ public class ConferenceDaoImpl implements ConferenceDao {
 		dbproperties.setAddParametersToConference(conference.getNameConf(), conference.getPlace(), conference.getDate(), conference.getTime(), conference.getCode());
 		dbproperties.updateResult();
 		dbproperties.closeDB();
-	}
-
-	@Override
-	public boolean checkNameDataTime(String nameConf, String place, String date, String time) throws SQLException, ClassNotFoundException {
-		quary = "SELECT * FROM conference WHERE nameConf=? OR time=?";
-		dbproperties.openDB();
-		dbproperties.createPreparedStatement(quary);
-		dbproperties.setCheckParametersForConference(nameConf, time);
-		ResultSet rs = dbproperties.createResult();
-		return rs.next()?true:false;
 	}
 
 
