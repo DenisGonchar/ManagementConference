@@ -23,10 +23,10 @@
 </head>
 <body>
 <h1>
-Hello <c:out value="${user.login}"></c:out>, you are speaker.
+Привет, <c:out value="${user.login}"></c:out>! Вы, спикер.
 </h1>
 <div class="tableForm">
-Это список ваших докладов. Выможете удалить или изменить их тему.
+Это список ваших докладов. Вы можете отказаться от доклада или изменить его тему.
 <form action="speachservlet" method="get">
 <table>
 <c:forEach items="${speaches}" var="s">
@@ -47,7 +47,7 @@ Interval: <c:out value="${s.interval}"></c:out> min.
 <input type="submit" value="Именить" name="e<c:out value="${s.code}"></c:out>">
 </td>
 <td>
-<input type="submit" value="Удалить" name="d<c:out value="${s.code}"></c:out>">
+<input type="submit" value="Отказаться" name="d<c:out value="${s.code}"></c:out>">
 </td>
 </tr>
 </c:forEach>
@@ -75,7 +75,10 @@ Interval: <c:out value="${s.interval}"></c:out> min.
 </td>
 <td>
 <c:if test="${pc.registration == false}">
-<input type="submit" value="Зарегистрироваться" name="<c:out value="${pc.conference.code}"></c:out>">
+<input type="submit" value="Зарегистрироваться" name="r<c:out value="${pc.conference.code}"></c:out>">
+</c:if>
+<c:if test="${pc.registration == true}">
+<input type="submit" value="Выйти" name="u<c:out value="${pc.conference.code}"></c:out>">
 </c:if>
 </td>
 </tr>

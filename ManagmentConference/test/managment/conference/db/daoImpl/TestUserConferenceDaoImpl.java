@@ -39,6 +39,7 @@ class TestUserConferenceDaoImpl {
 			assertTrue(userConferenceDaoImpl.checkUser(user, conference.getCode()));
 			conferenceDaoImpl.removeConference(conference);
 			userDaoImpl.removeUser(user);
+			userConferenceDaoImpl.delUser(user);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.err.println(e.getMessage());
@@ -60,6 +61,7 @@ class TestUserConferenceDaoImpl {
 			assertTrue(users.size() == 1);
 			conferenceDaoImpl.removeConference(conference);
 			userDaoImpl.removeUser(user);
+			userConferenceDaoImpl.delUser(user);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.err.println(e.getMessage());
@@ -81,6 +83,7 @@ class TestUserConferenceDaoImpl {
 			assertTrue(users.size() == 1);
 			conferenceDaoImpl.removeConference(conference);
 			userDaoImpl.removeUser(user);
+			userConferenceDaoImpl.delUser(user);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.err.println(e.getMessage());
@@ -104,6 +107,7 @@ class TestUserConferenceDaoImpl {
 			assertTrue(users.size() > users1.size());
 			conferenceDaoImpl.removeConference(conference);
 			userDaoImpl.removeUser(user);
+			userConferenceDaoImpl.delUser(user);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.err.println(e.getMessage());
@@ -127,6 +131,7 @@ class TestUserConferenceDaoImpl {
 			assertTrue(users.size() > users1.size());
 			conferenceDaoImpl.removeConference(conference);
 			userDaoImpl.removeUser(user);
+			userConferenceDaoImpl.delUser(user);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.err.println(e.getMessage());

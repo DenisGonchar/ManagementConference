@@ -68,7 +68,7 @@ public class LoginServlet extends HttpServlet {
 					request.setAttribute("conferences", conferences);
 					break;
 				case "speaker":
-					rd = request.getRequestDispatcher(language.equals("en")?"speaker.jsp":"speaker.jsp");
+					rd = request.getRequestDispatcher(language.equals("en")?"speaker.jsp":"speakerRUS.jsp");
 					speaches = speachDaoImpl.getSpeachesByLogSpkr(login);
 					conferences = conferenceDaoImpl.getAllConferences();
 					for (int i = 0; i < conferences.size(); i++) {
