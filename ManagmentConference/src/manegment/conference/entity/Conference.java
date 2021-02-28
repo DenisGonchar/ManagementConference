@@ -1,4 +1,4 @@
-package manegment.conference.classes;
+package manegment.conference.entity;
 
 public class Conference {
     private String nameConf;

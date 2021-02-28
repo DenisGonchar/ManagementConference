@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import manegment.conference.classes.Conference;
+import manegment.conference.entity.Conference;
 
 class TestConferenceDaoImpl {
 
@@ -27,10 +27,10 @@ class TestConferenceDaoImpl {
 			assertTrue(conferences.size() == conferences1.size());
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 
@@ -46,10 +46,10 @@ class TestConferenceDaoImpl {
 			conferenceDaoImpl.removeConference(conference);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 
@@ -63,10 +63,10 @@ class TestConferenceDaoImpl {
 			assertTrue(conferences.size() == 6);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 
@@ -88,10 +88,10 @@ class TestConferenceDaoImpl {
 			conferenceDaoImpl.removeConference(conference);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 

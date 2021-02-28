@@ -5,9 +5,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import manegment.conference.classes.Conference;
-import manegment.conference.classes.DBProperties;
-import manegment.conference.classes.Speech;
+import manegment.conference.entity.Conference;
+import manegment.conference.entity.DBProperties;
+import manegment.conference.entity.Speech;
 import menegment.conference.db.dao.SpeechDao;
 
 public class SpeechDaoImpl implements SpeechDao{

@@ -15,9 +15,9 @@ import javax.servlet.http.HttpSession;
 
 import managment.conference.db.daoImpl.ConferenceDaoImpl;
 import managment.conference.db.daoImpl.UserConferenceDaoImpl;
-import manegment.conference.classes.Conference;
-import manegment.conference.classes.PropConference;
-import manegment.conference.classes.User;
+import manegment.conference.entity.Conference;
+import manegment.conference.entity.PropConference;
+import manegment.conference.entity.User;
 
 /**
  * Servlet implementation class RegUserByConference
@@ -68,10 +68,10 @@ public class RegUserByConferenceServlet extends HttpServlet {
 			rd.forward(request, response);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 

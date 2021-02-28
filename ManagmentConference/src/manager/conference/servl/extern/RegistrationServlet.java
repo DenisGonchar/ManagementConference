@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import managment.conference.db.daoImpl.UserDaoImpl;
-import manegment.conference.classes.User;
+import manegment.conference.entity.User;
 
 /**
  * Servlet implementation class RegistrationServlet
@@ -51,10 +51,10 @@ public class RegistrationServlet extends HttpServlet {
 			rd.forward(request, response);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 

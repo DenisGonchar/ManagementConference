@@ -15,9 +15,9 @@ import javax.servlet.http.HttpSession;
 import managment.conference.db.daoImpl.ConferenceDaoImpl;
 import managment.conference.db.daoImpl.SpeechDaoImpl;
 import managment.conference.db.daoImpl.UserDaoImpl;
-import manegment.conference.classes.Conference;
-import manegment.conference.classes.Speech;
-import manegment.conference.classes.User;
+import manegment.conference.entity.Conference;
+import manegment.conference.entity.Speech;
+import manegment.conference.entity.User;
 
 /**
  * Servlet implementation class SaveConferenceServlet
@@ -62,10 +62,10 @@ public class SaveConferenceServlet extends HttpServlet {
 			rd.forward(request, response);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		
 	}

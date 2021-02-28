@@ -5,21 +5,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import manegment.conference.classes.DBProperties;
-import manegment.conference.classes.User;
+import manegment.conference.entity.DBProperties;
+import manegment.conference.entity.User;
 import menegment.conference.db.dao.UserDao;
 
 public class UserDaoImpl implements UserDao {
 	private DBProperties dbproperties = new DBProperties();
 	private List<User> users = new ArrayList<>();
-	private String quary;
+	private String query;
 
 	@Override
 	public List<User> getAllUsers() throws ClassNotFoundException, SQLException {
-		quary = "SELECT * FROM user WHERE rolle = 'user'";
+		query = "SELECT * FROM user WHERE rolle = 'user'";
 		dbproperties.openDB();
-		dbproperties.createPreparedStatement(quary);
+		dbproperties.createPreparedStatement(query);
 		ResultSet rs = dbproperties.createResult();
 		users.clear();
 		while (rs.next()) {
@@ -31,9 +30,9 @@ public class UserDaoImpl implements UserDao {
 	}
 	@Override
 	public List<User> getAllSpeakers() throws ClassNotFoundException, SQLException {
-		quary = "SELECT * FROM user WHERE rolle = 'speaker' AND login <> 'freeSpeaker'";
+		query = "SELECT * FROM user WHERE rolle = 'speaker' AND login <> 'freeSpeaker'";
 		dbproperties.openDB();
-		dbproperties.createPreparedStatement(quary);
+		dbproperties.createPreparedStatement(query);
 		ResultSet rs = dbproperties.createResult();
 		users.clear();
 		while (rs.next()) {
@@ -46,9 +45,9 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User checkUser(User user) throws ClassNotFoundException, SQLException {
-		quary = "SELECT * FROM user WHERE login=? AND password=?";
+		query = "SELECT * FROM user WHERE login=? AND password=?";
 		dbproperties.openDB();
-		dbproperties.createPreparedStatement(quary);
+		dbproperties.createPreparedStatement(query);
 		dbproperties.setCheckParameters(user.getLogin(), user.getPassword());
 		ResultSet rs = dbproperties.createResult();
 		User u = null;
@@ -62,9 +61,9 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public void addUser(User user) throws ClassNotFoundException, SQLException {
-		quary = "INSERT INTO user (login, password, email, rolle) VALUES (?, ?, ?, 'user')";
+		query = "INSERT INTO user (login, password, email, rolle) VALUES (?, ?, ?, 'user')";
 		dbproperties.openDB();
-		dbproperties.createPreparedStatement(quary);
+		dbproperties.createPreparedStatement(query);
 		dbproperties.setAddParameters(user.getLogin(), user.getPassword(), user.getEmail());
 		dbproperties.updateResult();
 		dbproperties.closeDB();
@@ -72,9 +71,9 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public void removeUser(User user) throws ClassNotFoundException, SQLException {
-		quary = "DELETE FROM user WHERE login =?";
+		query = "DELETE FROM user WHERE login =?";
 		dbproperties.openDB();
-		dbproperties.createPreparedStatement(quary);
+		dbproperties.createPreparedStatement(query);
 		dbproperties.setDelParameters(user.getLogin());
 		dbproperties.updateResult();
 		dbproperties.closeDB();
@@ -82,25 +81,19 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public void updateUser(User user) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public boolean checkLoginEmail(String login, String email) throws SQLException, ClassNotFoundException {
-		quary = "SELECT * FROM user WHERE login=? OR email=?";
+		query = "SELECT * FROM user WHERE login=? OR email=?";
 		dbproperties.openDB();
-		dbproperties.createPreparedStatement(quary);
+		dbproperties.createPreparedStatement(query);
 		dbproperties.setCheckParameters(login, email);
 		ResultSet rs = dbproperties.createResult();
 		return rs.next()?true:false;
 	}
 	@Override
 	public User getUserByLogin(String login) throws SQLException, ClassNotFoundException {
-		quary = "SELECT * FROM user WHERE login=?";
+		query = "SELECT * FROM user WHERE login=?";
 		dbproperties.openDB();
-		dbproperties.createPreparedStatement(quary);
+		dbproperties.createPreparedStatement(query);
 		dbproperties.setUserByLoginParameters(login);
 		ResultSet rs = dbproperties.createResult();
 		rs.next();
@@ -108,9 +101,9 @@ public class UserDaoImpl implements UserDao {
 	}
 	@Override
 	public void setRolle(User user, String rolle) throws SQLException, ClassNotFoundException {
-		quary = "UPDATE user SET rolle=? WHERE login =?";
+		query = "UPDATE user SET rolle=? WHERE login =?";
 		dbproperties.openDB();
-		dbproperties.createPreparedStatement(quary);
+		dbproperties.createPreparedStatement(query);
 		dbproperties.setParameterForRolle(user, rolle);
 		dbproperties.updateResult();
 		dbproperties.closeDB();

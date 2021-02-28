@@ -26,7 +26,7 @@
 Это список докладов из конференции под названием: <c:out value="${conference.nameConf}"></c:out>. Вы можете удалить или изменить название доклада.
 </h1>
 <div class="tableForm">
-<form action="deleditconference" method="get">
+<form action="deleditspeechservlet" method="get">
 <table>
 <c:forEach items="${speaches}" var="s">
 <tr>

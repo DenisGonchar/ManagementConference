@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import managment.conference.db.daoImpl.SpeechDaoImpl;
-import manegment.conference.classes.Conference;
-import manegment.conference.classes.Speech;
+import manegment.conference.entity.Conference;
+import manegment.conference.entity.Speech;
 
 /**
  * Servlet implementation class ChangeTopikSpeach
@@ -52,10 +52,10 @@ public class ChangeParametersSpeechServlet extends HttpServlet {
 			rd.forward(request, response);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 
