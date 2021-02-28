@@ -57,7 +57,7 @@
 <br>
 <input type="email" name="email" placeholder="Введите вашу почту" />
 <br>
-<input type="submit" class="gradient-button" value=" Зарегистрироваться "/>
+<input type="submit" class="gradient-button" value=" Подтвердить  "/>
 <div id = "Error">
 <c:out value="${Error}"></c:out>
 </div>

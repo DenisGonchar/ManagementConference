@@ -34,8 +34,9 @@ class TestSpeechesConferenceDaoImpl {
 			speachesConferenceDaoImpl.addSpeachConf(speech.getCode(), conference.getCode());
 			speachesConferenceDaoImpl.delSpeachConfByCodeSpeach(speech.getCode());
 			assertTrue(speechDaoImpl.getSpeachByCode(conference.getCode()) == null);
-			speechDaoImpl.removeSpeech(speech.getCode());
+			speechDaoImpl.removeSpeech("H10000");
 			conferenceDaoImpl.removeConference(conference);
+			speachesConferenceDaoImpl.delSpeachConfByCodeSpeach("H10000");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.err.println(e.getMessage());
@@ -55,8 +56,9 @@ class TestSpeechesConferenceDaoImpl {
 			conferenceDaoImpl.addConference(conference);
 			speachesConferenceDaoImpl.addSpeachConf(speech.getCode(), conference.getCode());
 			assertEquals(speechDaoImpl.getSpeachByCode(conference.getCode()), speech);
-			speechDaoImpl.removeSpeech(speech.getCode());
+			speechDaoImpl.removeSpeech("H10000");
 			conferenceDaoImpl.removeConference(conference);
+			speachesConferenceDaoImpl.delSpeachConfByCodeSpeach("H10000");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.err.println(e.getMessage());

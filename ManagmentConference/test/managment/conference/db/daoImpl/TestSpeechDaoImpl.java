@@ -154,8 +154,9 @@ class TestSpeechDaoImpl {
 			Speech speech = new Speech("TestAddSpeech", "15:00:00", "20", "freeSpeaker", "H10000");
 			speechDaoImpl.addSpeach(speech);
 			List<Speech> speechesAfter = speechDaoImpl.getAllSpeaches();
-			speechDaoImpl.removeSpeech("H10000");
+			speechDaoImpl.removeSpeech(speech.getCode());
 			assertTrue(speechesAfter.size() - speechesBefore.size() == 0);
+			speechDaoImpl.removeSpeech("H10000");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.err.println(e.getMessage());

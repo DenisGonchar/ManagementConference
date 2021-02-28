@@ -65,7 +65,6 @@ This is list of Speakers. You can remove them from conferences.
 </td>
 <td>
 <input type="submit" value="delete" name="<c:out value="${s.login}"></c:out>">
-<input type="submit" value="Propose speach" name="<c:out value=""></c:out>">
 <input type="submit" value="Make Him a User" name="gtu<c:out value="${s.login}"></c:out>">
 </td>
 </tr>

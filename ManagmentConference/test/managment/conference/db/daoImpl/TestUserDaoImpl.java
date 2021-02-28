@@ -95,6 +95,7 @@ class TestUserDaoImpl {
 			List<User> usersAfter = userDaoImpl.getAllUsers();
 			userDaoImpl.removeUser(user);
 			assertTrue(usersBefore.size() == usersAfter.size());
+			userDaoImpl.removeUser(user);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.err.println(e.getMessage());
@@ -125,7 +126,7 @@ class TestUserDaoImpl {
 		try {
 			User user = new User("TestUserForTest", "11111", "test@test", "user");
 			userDaoImpl.addUser(user);
-			assertEquals(userDaoImpl.getUserByLogin(user.getLogin()), user);
+			assertEquals(userDaoImpl.getUserByLogin("TestUserForTest"), user);
 			userDaoImpl.removeUser(user);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
