@@ -2,73 +2,155 @@ package managment.conference.db.daoImpl;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
+import java.sql.SQLException;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import manegment.conference.entity.User;
+
 class TestUserDaoImpl {
-
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
+	
+	UserDaoImpl userDaoImpl;
 
 	@BeforeEach
 	void setUp() throws Exception {
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
+		userDaoImpl = new UserDaoImpl();
 	}
 
 	@Test
 	void testGetAllUsers() {
-		fail("Not yet implemented");
+		try {
+			List<User> users = userDaoImpl.getAllUsers();
+			List<User> users1 = userDaoImpl.getAllUsers();
+			assertTrue(users.size() == users1.size());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.err.println(e.getMessage());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.err.println(e.getMessage());
+		}
 	}
 
 	@Test
 	void testGetAllSpeakers() {
-		fail("Not yet implemented");
+		try {
+			List<User> speakers = userDaoImpl.getAllSpeakers();
+			List<User> speakers1 = userDaoImpl.getAllSpeakers();
+			assertTrue(speakers.size() == speakers1.size());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.err.println(e.getMessage());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.err.println(e.getMessage());
+		}
 	}
 
 	@Test
 	void testCheckUser() {
-		fail("Not yet implemented");
+		try {
+			User user = new User("TestUserForTest", "11111", "test@test", "user");
+			User user1 = new User("TestUserForTest1", "22222", "test@test", "user");
+			userDaoImpl.addUser(user);
+			userDaoImpl.addUser(user1);
+			assertTrue(userDaoImpl.checkUser(user) != userDaoImpl.checkUser(user1));
+			userDaoImpl.removeUser(user);
+			userDaoImpl.removeUser(user1);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.err.println(e.getMessage());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.err.println(e.getMessage());
+		}
 	}
 
 	@Test
 	void testAddUser() {
-		fail("Not yet implemented");
+		try {
+			List<User> usersBefore = userDaoImpl.getAllUsers();
+			User user = new User("TestUserForTest", "11111", "test@test", "user");
+			userDaoImpl.addUser(user);
+			List<User> usersAfter = userDaoImpl.getAllUsers();
+			assertTrue(usersBefore.size() < usersAfter.size());
+			userDaoImpl.removeUser(user);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.err.println(e.getMessage());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.err.println(e.getMessage());
+		}
 	}
 
 	@Test
 	void testRemoveUser() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testUpdateUser() {
-		fail("Not yet implemented");
+		try {
+			List<User> usersBefore = userDaoImpl.getAllUsers();
+			User user = new User("TestUserForTest", "11111", "test@test", "user");
+			userDaoImpl.addUser(user);
+			List<User> usersAfter = userDaoImpl.getAllUsers();
+			userDaoImpl.removeUser(user);
+			assertTrue(usersBefore.size() == usersAfter.size());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.err.println(e.getMessage());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.err.println(e.getMessage());
+		}
 	}
 
 	@Test
 	void testCheckLoginEmail() {
-		fail("Not yet implemented");
+		try {
+			User user = new User("TestUserForTest", "11111", "test@test", "user");
+			userDaoImpl.addUser(user);
+			assertTrue(userDaoImpl.checkLoginEmail(user.getLogin(), user.getEmail()));
+			userDaoImpl.removeUser(user);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.err.println(e.getMessage());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.err.println(e.getMessage());
+		}
 	}
 
 	@Test
 	void testGetUserByLogin() {
-		fail("Not yet implemented");
+		try {
+			User user = new User("TestUserForTest", "11111", "test@test", "user");
+			userDaoImpl.addUser(user);
+			assertEquals(userDaoImpl.getUserByLogin(user.getLogin()), user);
+			userDaoImpl.removeUser(user);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.err.println(e.getMessage());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.err.println(e.getMessage());
+		}
 	}
 
 	@Test
 	void testSetRolle() {
-		fail("Not yet implemented");
+		try {
+			User user = new User("TestUserForTest", "11111", "test@test", "user");
+			userDaoImpl.addUser(user);
+			userDaoImpl.setRolle(user, "speaker");
+			assertEquals(user.getRolle(), "speaker");
+			userDaoImpl.removeUser(user);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.err.println(e.getMessage());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.err.println(e.getMessage());
+		}
 	}
 
 }

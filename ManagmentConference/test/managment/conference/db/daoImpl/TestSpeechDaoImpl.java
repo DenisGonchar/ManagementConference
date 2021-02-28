@@ -8,8 +8,8 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import manegment.conference.classes.Conference;
-import manegment.conference.classes.Speech;
+import manegment.conference.entity.Conference;
+import manegment.conference.entity.Speech;
 
 class TestSpeechDaoImpl {
 	
@@ -32,10 +32,10 @@ class TestSpeechDaoImpl {
 			assertTrue(speeches.size() == speeches1.size());
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 	
@@ -50,10 +50,10 @@ class TestSpeechDaoImpl {
 			speechDaoImpl.removeSpeech("H10000");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 	
@@ -70,10 +70,10 @@ class TestSpeechDaoImpl {
 			conferenceDaoImpl.removeConference(conference);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 	
@@ -86,10 +86,10 @@ class TestSpeechDaoImpl {
 			speechDaoImpl.removeSpeech("H10000");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 	
@@ -102,10 +102,10 @@ class TestSpeechDaoImpl {
 			speechDaoImpl.removeSpeech("H10000");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 	
@@ -121,10 +121,10 @@ class TestSpeechDaoImpl {
 			speechDaoImpl.removeSpeech("H10000");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 	
@@ -140,10 +140,10 @@ class TestSpeechDaoImpl {
 			speechDaoImpl.removeSpeech("H10000");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 	
@@ -158,10 +158,10 @@ class TestSpeechDaoImpl {
 			assertTrue(speechesAfter.size() - speechesBefore.size() == 0);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 	
@@ -177,10 +177,10 @@ class TestSpeechDaoImpl {
 			speechDaoImpl.removeSpeech("H10000");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 	
@@ -196,10 +196,10 @@ class TestSpeechDaoImpl {
 			speechDaoImpl.removeSpeech("H10000");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 	

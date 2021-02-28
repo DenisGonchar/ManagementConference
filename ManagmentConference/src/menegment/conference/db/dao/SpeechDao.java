@@ -3,8 +3,8 @@ package menegment.conference.db.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-import manegment.conference.classes.Conference;
-import manegment.conference.classes.Speech;
+import manegment.conference.entity.Conference;
+import manegment.conference.entity.Speech;
 
 public interface SpeechDao {
 	public List<Speech> getAllSpeaches() throws ClassNotFoundException, SQLException;

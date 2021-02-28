@@ -1,4 +1,4 @@
-package manegment.conference.classes;
+package manegment.conference.entity;
 
 public class Speech {
     private String nameSpeach;

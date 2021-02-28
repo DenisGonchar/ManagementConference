@@ -5,20 +5,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import manegment.conference.classes.DBProperties;
-import manegment.conference.classes.User;
+import manegment.conference.entity.DBProperties;
+import manegment.conference.entity.User;
 import menegment.conference.db.dao.UserConferenceDao;
 
 public class UserConferenceDaoImpl implements UserConferenceDao{
 	private DBProperties dbproperties = new DBProperties();
 	private List<User> users = new ArrayList<User>();
-	private String quary;
+	private String query;
 	
 	@Override
 	public boolean checkUser(User user, String code) throws ClassNotFoundException, SQLException {
-		quary = "SELECT * FROM userConference WHERE login =? AND code =?";
+		query = "SELECT * FROM userConference WHERE login =? AND code =?";
 		dbproperties.openDB();
-		dbproperties.createPreparedStatement(quary);
+		dbproperties.createPreparedStatement(query);
 		dbproperties.setCheckRegParameters(user.getLogin(), code);
 		ResultSet rs = dbproperties.createResult();
 		if(rs.next()){
@@ -29,9 +29,9 @@ public class UserConferenceDaoImpl implements UserConferenceDao{
 	}
 	@Override
 	public List<User> getUsersByCode (String code) throws ClassNotFoundException, SQLException {
-		quary = "SELECT login FROM userConference WHERE code =?";
+		query = "SELECT login FROM userConference WHERE code =?";
 		dbproperties.openDB();
-		dbproperties.createPreparedStatement(quary);
+		dbproperties.createPreparedStatement(query);
 		dbproperties.setParametersFromUserConference(code);
 		ResultSet rs = dbproperties.createResult();
 		users.clear();
@@ -45,9 +45,9 @@ public class UserConferenceDaoImpl implements UserConferenceDao{
 
 	@Override
 	public void regUser(User user, String code) throws SQLException, ClassNotFoundException {
-		quary = "INSERT INTO userConference (login, code) VALUES (?, ?)";
+		query = "INSERT INTO userConference (login, code) VALUES (?, ?)";
 		dbproperties.openDB();
-		dbproperties.createPreparedStatement(quary);
+		dbproperties.createPreparedStatement(query);
 		dbproperties.setAddParametersToRegUserConference(user.getLogin(), code);
 		dbproperties.updateResult();
 		dbproperties.closeDB();
@@ -55,9 +55,9 @@ public class UserConferenceDaoImpl implements UserConferenceDao{
 	}
 	@Override
 	public void unRegUser(User user, String code) throws SQLException, ClassNotFoundException {
-		quary = "DELETE FROM userConference WHERE login =? AND code =?";
+		query = "DELETE FROM userConference WHERE login =? AND code =?";
 		dbproperties.openDB();
-		dbproperties.createPreparedStatement(quary);
+		dbproperties.createPreparedStatement(query);
 		dbproperties.setAddParametersToRegUserConference(user.getLogin(), code);
 		dbproperties.updateResult();
 		dbproperties.closeDB();
@@ -65,9 +65,9 @@ public class UserConferenceDaoImpl implements UserConferenceDao{
 	}
 	@Override
 	public void delUser(User user) throws ClassNotFoundException, SQLException {
-		quary = "DELETE FROM userconference WHERE login =?";
+		query = "DELETE FROM userconference WHERE login =?";
 		dbproperties.openDB();
-		dbproperties.createPreparedStatement(quary);
+		dbproperties.createPreparedStatement(query);
 		dbproperties.setDelUserParameters(user);
 		dbproperties.updateResult();
 		dbproperties.closeDB();

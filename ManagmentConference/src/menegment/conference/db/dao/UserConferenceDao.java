@@ -3,7 +3,7 @@ package menegment.conference.db.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-import manegment.conference.classes.User;
+import manegment.conference.entity.User;
 
 public interface UserConferenceDao {
 

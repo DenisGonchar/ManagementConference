@@ -1,4 +1,4 @@
-package manegment.conference.classes;
+package manegment.conference.entity;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

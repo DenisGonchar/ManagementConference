@@ -17,10 +17,10 @@ import managment.conference.db.daoImpl.ConferenceDaoImpl;
 import managment.conference.db.daoImpl.SpeechDaoImpl;
 import managment.conference.db.daoImpl.UserConferenceDaoImpl;
 import managment.conference.db.daoImpl.UserDaoImpl;
-import manegment.conference.classes.Conference;
-import manegment.conference.classes.PropConference;
-import manegment.conference.classes.Speech;
-import manegment.conference.classes.User;
+import manegment.conference.entity.Conference;
+import manegment.conference.entity.PropConference;
+import manegment.conference.entity.Speech;
+import manegment.conference.entity.User;
 
 /**
  * Servlet implementation class LoginServlet
@@ -28,7 +28,7 @@ import manegment.conference.classes.User;
 @WebServlet("/loginservlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -104,10 +104,10 @@ public class LoginServlet extends HttpServlet {
 			rd.forward(request, response);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 

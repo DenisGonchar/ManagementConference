@@ -3,7 +3,7 @@ package menegment.conference.db.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-import manegment.conference.classes.Conference;
+import manegment.conference.entity.Conference;
 
 public interface ConferenceDao {
 	public List<Conference> getAllConferences() throws ClassNotFoundException, SQLException;

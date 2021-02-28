@@ -5,20 +5,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import manegment.conference.classes.Conference;
-import manegment.conference.classes.DBProperties;
+import manegment.conference.entity.Conference;
+import manegment.conference.entity.DBProperties;
 import menegment.conference.db.dao.ConferenceDao;
 
 public class ConferenceDaoImpl implements ConferenceDao {
 	private DBProperties dbproperties = new DBProperties();
 	private List<Conference> conferences = new ArrayList<>();
-	private String quary;
-
+	private String query;
+	
+	/**
+	 * 
+	 */
 	@Override
 	public List<Conference> getAllConferences() throws ClassNotFoundException, SQLException{
-		quary = "SELECT * FROM conference";
+		query = "SELECT * FROM conference";
 		dbproperties.openDB();
-		dbproperties.createPreparedStatement(quary);
+		dbproperties.createPreparedStatement(query);
 		ResultSet rs = dbproperties.createResult();
 		conferences.clear();
 		while (rs.next()) {
@@ -32,9 +35,9 @@ public class ConferenceDaoImpl implements ConferenceDao {
 
 	@Override
 	public void addConference(Conference conference) throws ClassNotFoundException, SQLException {
-		quary = "INSERT INTO conference (nameConf, place, date, time, code) VALUES (?, ?, ?, ?, ?)";
+		query = "INSERT INTO conference (nameConf, place, date, time, code) VALUES (?, ?, ?, ?, ?)";
 		dbproperties.openDB();
-		dbproperties.createPreparedStatement(quary);
+		dbproperties.createPreparedStatement(query);
 		dbproperties.setAddParametersToConference(conference.getNameConf(), conference.getPlace(), conference.getDate(), conference.getTime(), conference.getCode());
 		dbproperties.updateResult();
 		dbproperties.closeDB();
@@ -43,9 +46,9 @@ public class ConferenceDaoImpl implements ConferenceDao {
 
 	@Override
 	public void removeConference(Conference conference) throws SQLException, ClassNotFoundException {
-		quary = "DELETE FROM conference WHERE code =?";
+		query = "DELETE FROM conference WHERE code =?";
 		dbproperties.openDB();
-		dbproperties.createPreparedStatement(quary);
+		dbproperties.createPreparedStatement(query);
 		dbproperties.setDelParameters(conference.getCode());
 		dbproperties.updateResult();
 		dbproperties.closeDB();
@@ -54,9 +57,9 @@ public class ConferenceDaoImpl implements ConferenceDao {
 
 	@Override
 	public void updateConference(Conference conference) throws SQLException, ClassNotFoundException {
-		quary = "UPDATE conference SET nameConf=?, place=?, date=?, time=? WHERE code =?";
+		query = "UPDATE conference SET nameConf=?, place=?, date=?, time=? WHERE code =?";
 		dbproperties.openDB();
-		dbproperties.createPreparedStatement(quary);
+		dbproperties.createPreparedStatement(query);
 		dbproperties.setUpdateParameters(conference);
 		dbproperties.updateResult();
 		dbproperties.closeDB();
