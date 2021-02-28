@@ -1,4 +1,4 @@
-# MenegmentConference1
+# ManagementConference
 конференції
 
 існують ролі: модератор, спікер і звичайний користувач.
